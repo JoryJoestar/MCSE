@@ -1,0 +1,8 @@
+.#{$theme-name} {
+  @import "./layout.scss";
+  @import "./login.scss";
+  @import "./error-page.scss";
+  @import "./other.scss";
+  @import './vuetify.scss';
+  @import './resume.scss';
+}

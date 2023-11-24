@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "typeRoots": [
+      "./node_modules/@types", // 默认值
+      "./src/types",
+    ],
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "allowJs": true, //编译时允许有js
+    "allowSyntheticDefaultImports": true, //允许引入没有默认导出的模块
+    "forceConsistentCasingInFileNames": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "baseUrl": "./", // 解析非相对模块的基础地址，默认是当前目录
+    "paths": {
+      "@/*": ["./src/*"], // 路径映射，相对于baseUrl
+      "pinia-plugin-persist": [
+        "./node_modules/pinia-plugin-persist/dist/index.d.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "dist"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.md",
+    "src/**/*.vue",
+    "src/**/*.ts",
+    "src/**/*.js",
+    "./auto-imports.d.ts",
+    "./shims.d.ts"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

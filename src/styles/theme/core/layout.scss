@@ -1,0 +1,20 @@
+/** Layout 相关 */
+.website-layout {
+    color: $font-color;
+    background-color: lighten($theme-bg-color, 2%) !important;
+
+    .navigation-bar {
+        color: $font-color;
+        background-color: lighten($theme-bg-color, 2%) !important;
+    }
+
+    .app-main {
+        color: $font-color;
+        background-color: lighten($theme-bg-color, 2%) !important;
+    }
+}
+
+.webgl-layout {
+    color: $font-color;
+    background-color: lighten($theme-bg-color, 2%) !important;
+}

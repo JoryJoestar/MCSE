@@ -1,0 +1,23 @@
+* {
+    scrollbar-color: var(--c-scrollbar) var(--c-bg);
+}
+
+
+::-webkit-scrollbar {
+    width: 0.5rem;
+}
+::-webkit-scrollbar:horizontal {
+    height: 0.5rem;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+    background: var(--c-bg);
+    border-radius: 0.2rem;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--c-scrollbar);
+    border-radius: 0.2rem;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--c-scrollbar-hover);
+}

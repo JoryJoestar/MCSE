@@ -1,0 +1,59 @@
+// Reset
+
+body {
+    padding: 0;
+    margin: 0;
+}
+// 重置所有元素的边距和填充为0
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// 重置列表元素的样式（去掉默认的圆点符号）
+ul,
+ol {
+    list-style: none;
+}
+
+// a元素的文本装饰为无，颜色继承父元素的颜色
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+// 设置页面的根元素
+html {
+    font-size: 16px;
+}
+
+// 重置表格元素的边框样式
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+// 为表单元素禁用默认的外观
+input,
+textarea,
+select,
+button {
+    // appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+// 重置图像为100%宽度
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+// 清除浮动
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}

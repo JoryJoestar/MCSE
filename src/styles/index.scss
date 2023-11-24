@@ -1,0 +1,130 @@
+@import "./transition.scss";
+// 注册多主题
+@import "./theme/register.scss";
+// reset
+@import "./reset.scss";
+// noprogress
+@import "./noprogress.scss";
+// scrollbar
+@import "./scrollbar.scss";
+
+@import "./viewTransition.scss";
+
+@import "./datgui.scss";
+
+@import "./mcskineditor.scss";
+
+:root {
+  --c-bg: #fff;
+  --c-scrollbar: #eee;
+  --c-scrollbar-hover: #bbb;
+  --c-noprogress-color: #d0d0d0;
+}
+
+html {
+  background-color: var(--c-bg);
+  overflow-y: auto;
+}
+
+html.dark {
+  --c-bg: #151515;
+  --c-scrollbar: #535353;
+  --c-scrollbar-hover: #aeaeae;
+  --c-noprogress-color: #d0d0d0;
+}
+
+/* 文字单行省略号 */
+.sle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+::selection {
+  background: #8884;
+}
+
+.sponsorkit-avatar {
+  cursor: pointer;
+}
+
+h2 + p > em:first-child {
+  opacity: 0.5;
+  display: block;
+  margin-top: -20px;
+  font-size: 0.9em;
+}
+
+.dark [img-light] {
+  display: none;
+}
+
+html:not(.dark) [img-dark] {
+  display: none;
+}
+
+@keyframes slide-enter {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 100;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.no-sliding) [slide-enter],
+  html:not(.no-sliding) .slide-enter,
+  html:not(.no-sliding) .slide-enter-content > *:not(:has(.table-of-contents)) {
+    --enter-stage: 0;
+    --enter-step: 30ms;
+    --enter-initial: 0ms;
+    animation: slide-enter 0.5s both 1;
+    animation-delay: calc(var(--enter-initial) + var(--enter-stage) * var(--enter-step));
+  }
+
+  // .slide-enter-content > *:nth-child(n) {
+  //   --enter-stage: var(--enter-stages[content.childNodes[n - 1]]);
+  // }
+}
+
+.rainfx {
+  position: fixed;
+  top: 0;
+  left: 0;
+  .raindrop {
+    position: absolute;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    text-transform: uppercase;
+    color: $PrimaryColor-default;
+    text-shadow:
+      0 0 5px $PrimaryColor-default,
+      0 0 15px $PrimaryColor-default,
+      0 0 30px $PrimaryColor-default;
+    transform-origin: bottom;
+    animation: animate 1s linear forwards;
+    opacity: 0.3;
+    transition: all 0.3s;
+  }
+
+  @keyframes animate {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 0.3;
+    }
+
+    70% {
+      transform: translateY(calc(100vh - 1.5rem)) scale(1);
+      opacity: 0.2;
+    }
+
+    100% {
+      transform: translateY(calc(100vh - 1.5rem)) scale(0);
+      opacity: 0.1;
+    }
+  }
+}

@@ -1,0 +1,269 @@
+.active {
+    display: block;
+}
+
+.active-none {
+    display: none;
+}
+
+.hidden {
+    display: none!important;
+    visibility: hidden!important
+}
+
+#canvas {
+    height: 490px;
+    width: 100%;
+    cursor: crosshair;
+}
+
+@media screen and (max-width: 640px) {
+    #canvas {
+        height: 460px;
+    }
+}
+
+#canvas canvas {
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+#bodyparts {
+    position: absolute;
+    top: 344px;
+    left: 18px;
+    height: 150px;
+    width: 150px;
+}
+
+.bodyparts {
+    position: relative;
+    width: 65px;
+    height: 150px;
+    float: left;
+}
+
+.bodyparts span {
+    position: absolute;
+    width: 51px;
+    text-align: center;
+    display: block;
+    font-size: 12px;
+    left: 0;
+    top: -25px;
+    user-select: none;
+}
+
+.bodypart {
+    position: absolute;
+    background-image: url(/images/skin/default_skin@3x.png);
+    cursor: pointer;
+}
+
+.bodypart.hidden {
+    background-image: url(/images/skin/default_skin_disabled@3x.png);
+    display: block !important;
+    visibility: visible !important;
+}
+
+.bodypart.alex {
+    background-image: url(/images/skin/alex@3x.png);
+}
+
+.bodypart.hidden.alex {
+    background-image: url(/images/skin/alex_disabled@3x.png);
+}
+
+.bodypart.head {
+    width: 24px;
+    height: 24px;
+    top: 0;
+    left: 13px;
+    background-position: -24px -24px;
+}
+
+.bodypart.torso {
+    width: 24px;
+    height: 36px;
+    top: 25px;
+    left: 13px;
+    background-position: -60px -60px;
+}
+
+.bodypart.arm_left {
+    width: 12px;
+    height: 36px;
+    top: 25px;
+    left: 38px;
+    background-position: -132px -60px;
+}
+
+.bodypart.arm_right {
+    width: 12px;
+    height: 36px;
+    top: 25px;
+    left: 0;
+    background-position: -132px -60px;
+}
+
+.bodypart.arm_left.alex {
+    width: 9px;
+}
+
+.bodypart.arm_right.alex {
+    width: 9px;
+    left: 3px;
+}
+
+.bodypart.leg_left {
+    width: 12px;
+    height: 36px;
+    top: 62px;
+    left: 25px;
+    background-position: -12px -60px;
+}
+
+.bodypart.leg_right {
+    width: 11px;
+    height: 36px;
+    top: 62px;
+    left: 13px;
+    background-position: -12px -60px;
+}
+
+.toggle-select .bodyparts {
+    margin-top: 17px;
+    height: 100px;
+}
+
+.toggle-select .bodyparts + .bodyparts {
+    width: 50px;
+}
+
+#skin-canvas {
+    display: none;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .bodypart {
+        background-image: url(/images/skin/default_skin@6x.png);
+        background-size: 192px 96px;
+    }
+
+    .bodypart.hidden {
+        background-image: url(/images/sskin/default_skin_disabled@6x.png);
+        background-size: 192px 96px;
+    }
+
+    .bodypart.alex {
+        background-image: url(/images/skin/alex@6x.png);
+        background-size: 192px 192px;
+    }
+
+    .bodypart.hidden.alex {
+        background-image: url(/images/skin/alex_disabled@6x.png);
+    }
+}
+
+.skin-controls {
+    position: relative;
+}
+
+.skin-controls .selector {
+    position: absolute;
+    left: 15px;
+    bottom: 15px;
+    max-width: 130px;
+    width: 20%;
+}
+
+.toggle-select {
+    display: none;
+}
+
+.selector-overlay {
+    display: none;
+}
+
+a.body-selector {
+    display: block;
+    background: #0088cb;
+    color: #fff;
+    padding: 5px;
+    font-size: 12px;
+    line-height: 12px;
+    border-radius: 0 5px 0 0;
+}
+
+a.body-selector:visited {
+    color: #fff;
+}
+
+a.body-selector:hover,
+a.body-selector.active {
+    background: #02608f;
+    text-decoration: none;
+}
+
+.selector-overlay {
+    position: absolute;
+    bottom: 35px;
+    background-color: #fff;
+    left: 10px;
+    width: 147px;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: #fff;
+    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.selector-overlay:before,
+.selector-overlay:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-bottom: 0;
+}
+
+.selector-overlay:before {
+    bottom: -11px;
+    left: 21px;
+    border-top-color: #ccc;
+    border-width: 11px;
+}
+
+.selector-overlay:after {
+    bottom: -10px;
+    left: 22px;
+    border-top-color: #fff;
+    border-width: 10px;
+}
+
+@media screen and (max-width: 875px) {
+    .toggle-select {
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+    }
+
+    .skin-controls .selector {
+        display: none;
+    }
+}
+
+// bar-controls
+.bar-controls {
+}
+
+// model-controls
+
+.model-controls {
+}

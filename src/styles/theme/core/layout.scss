@@ -1,20 +1,20 @@
 /** Layout 相关 */
-.website-layout {
+.layout {
     color: $font-color;
-    background-color: lighten($theme-bg-color, 2%) !important;
+    background-color: $theme-sub-bg-color !important;
+    height: 100vh;
 
     .navigation-bar {
         color: $font-color;
-        background-color: lighten($theme-bg-color, 2%) !important;
+        background-color: $theme-bg-color !important;
+        height: 5vh;
+        display: flex;
+        justify-content: center;
     }
 
     .app-main {
         color: $font-color;
-        background-color: lighten($theme-bg-color, 2%) !important;
+        background-color: $theme-sub-bg-color !important;
+        height: 95vh;
     }
-}
-
-.webgl-layout {
-    color: $font-color;
-    background-color: lighten($theme-bg-color, 2%) !important;
 }

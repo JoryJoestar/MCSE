@@ -2,8 +2,14 @@
 
 // 主题名称
 $theme-name: "light";
+
+// layout
+
 // 主题背景颜色
 $theme-bg-color: #ffffff;
+// 主题背景辅助颜色
+$theme-sub-bg-color: #f3f3f3;
+
 // 主题色
 $theme-color: #409eff;
 // 默认文字颜色
@@ -15,9 +21,8 @@ $hover-color: #fff;
 // 边框颜色
 $border-color: #24cf5d;
 
-// reumse title
-$reumse-title-bg: #24cf5d;
-
-
 // focus input框 背景颜色
 $input-focus-bg-color: rgba(201, 201, 201, 0.3);
+
+// v-list box-shadow
+$theme-box-shadow-color: rgba(0, 0, 0, 0.15);

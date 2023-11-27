@@ -2,8 +2,12 @@
 
 // 主题名称
 $theme-name: "dark";
+
 // 主题背景颜色
-$theme-bg-color: #151515;
+$theme-bg-color: #181818;
+// nav
+$theme-sub-bg-color: #242424;
+
 // 主题色
 $theme-color: #409eff;
 // 默认文字颜色
@@ -15,8 +19,7 @@ $hover-color: #fff;
 // 边框颜色
 $border-color: #24cf5d;
 
-// reumse title
-$reumse-title-bg: #16833b;
-
 // focus input框 背景颜色
 $input-focus-bg-color: rgba(80, 80, 80, 0.3);
+
+$theme-box-shadow-color: rgba(255, 255, 255, 0.15);

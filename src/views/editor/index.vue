@@ -1,48 +1,17 @@
 <script lang="ts" setup>
 import Bus from '@/utils/Bus';
 import { useTheme } from "@/hooks/useTheme"
-import { SkinEditor } from '@/modules/MCSkinEditor';
+import { SkinEditor } from '@/modules/Editor';
 import { getSkin, setSkin } from '@/utils/cache/localStorage';
 
-let skineditor: SkinEditor;
+import { useEditorStore } from '@/store/editor';
+
 const canvas = ref();
 
-// 保存皮肤
-const saveSkin = () => {
-  console.log('保存皮肤');
-}
-// 上传皮肤
-const uploadSkin = () => {
-  console.log('上传皮肤');
-}
+const editorStore = useEditorStore();
+const editorState = storeToRefs(editorStore);
 
-const resetSkin = () => {
-
-  skineditor.resetSkin()
-  // console.log('重置皮肤')
-
-}
-
-// 绘画工具
-const tool = ref<string>('');
-const toolChange = (tool: String) => {
-  skineditor.toolBox.changeTool(tool);
-}
-// 编辑器功能
-const toolBox = ref<string>('');
-const toolBoxChange = (toolBox: String) => {
-  console.log(toolBox)
-}
-const brightness_up = ref(true);
-const brightness_down = ref(true);
-const zoom_in = ref(false);
-const zoom_out = ref(false);
-const move = ref(false);
-const center = ref(false);
-const undoHistoryLength = ref<number>(0);
-const undo = ref(true);
-const redoHistoryLength = ref<number>(0);
-const redo = ref(true);
+let skineditor: SkinEditor;
 
 const color = ref<string>('');
 const colorIndex = ref<number>(0);
@@ -54,8 +23,6 @@ const RandomColor = () => {
 }
 
 const { activeThemeName } = useTheme()
-
-// console.log('activeTheme', activeThemeName)
 
 const colorItems = [
   {
@@ -140,17 +107,19 @@ const switchGridChange = (switchGrid: boolean) => {
 
 
 
-const initSkineditor = (imageURL?: string) => {
+const initSkineditor = async (imageURL?: string) => {
 
   skineditor = new SkinEditor();
 
-  skineditor.init();
+  await skineditor.init();
 
-  skineditor.initSkin(imageURL);
+  await skineditor.initSkin(imageURL);
 
   skineditor.initSkinLoaded((curModel: string, curTool: string) => {
-    tool.value = curTool;
     model.value = curModel;
+    editorState.tool.value = curTool;
+
+    editorStore.setSkinEditor(skineditor);
 
     modelChangeTool = skineditor.modelChangeTool;
     modelChangeTool?.initModelLoaded((val: any) => {
@@ -159,18 +128,17 @@ const initSkineditor = (imageURL?: string) => {
     })
   })
 
-
   // History 每次操作完成的回调
   skineditor.toolBox.history.pushLoaded((undoHistoryLength_val: number, redoHistoryLength_val: number) => {
-    undoHistoryLength.value = undoHistoryLength_val;
-    redoHistoryLength.value = redoHistoryLength_val;
+    editorState.undoHistoryLength.value = undoHistoryLength_val;
+    editorState.redoHistoryLength.value = redoHistoryLength_val;
   })
-
 
   // dropper 吸取后回调
   skineditor.toolBox.dropper.dropperLoaded((color: any) => {
     dropperColorChange(color);
   })
+
 
 
 }
@@ -213,77 +181,29 @@ onUnmounted(() => {
 
 })
 
+
+
+
 watch(
-  () => [tool.value, toolBox.value, colorIndex.value, model.value, pose.value, switchGrid.value, undoHistoryLength.value, redoHistoryLength.value],
+  () => [pose.value, switchGrid.value],
   (
-    [newTool, newToolBox, newColorIndex, newModel, newPose, newSwitchGrid, newUndoHistoryLength, newRedoHistoryLength],
-    [oldTool, oldToolBox, oldColorIndex, oldModel, oldPose, oldSwitchGrid, oldUndoHistoryLength, oldRedoHistoryLength]
+    [newPose, newSwitchGrid],
+    [oldPose, oldSwitchGrid]
   ) => {
-    if (newTool !== oldTool) {
-      toolChange((newTool as string))
-    }
-    if (newToolBox !== oldToolBox) {
-      toolBoxChange((newToolBox as string))
-    }
 
-    if (newColorIndex !== oldColorIndex) {
-      console.log();
-    }
-    if (newModel !== oldModel) {
-
-    }
     if (newPose !== oldPose) {
       poseChange((newPose as string));
     }
     if (newSwitchGrid !== oldSwitchGrid) {
       switchGridChange((newSwitchGrid as boolean));
     }
-    if (newUndoHistoryLength !== oldUndoHistoryLength) {
-      // console.log(newUndoHistoryLength);
-      if ((newUndoHistoryLength as number) > 0) {
-        undo.value = false;
-      }
-      else if ((newUndoHistoryLength as number) === 0) {
-        undo.value = true;
-      }
-    }
-    if (newRedoHistoryLength !== oldRedoHistoryLength) {
-      if ((newRedoHistoryLength as number) > 0) {
-        redo.value = false;
-      }
-      else if ((newRedoHistoryLength as number) === 0) {
-        redo.value = true;
-      }
-    }
-
   },
 )
 </script>
 <template>
-  <div class="MCSkinEditor">
+  <div class="Editor">
     <v-row no-gutters justify="center">
       <v-card id="skineditor" :theme="activeThemeName">
-        <v-col>
-          <v-row class="bar-controls" justify="center">
-            <v-col>
-              <v-btn class="control upgrade" width="100%">加载皮肤</v-btn>
-            </v-col>
-            <v-col>
-              <v-btn class="control download" width="100%">
-                下载皮肤</v-btn>
-            </v-col>
-            <v-col>
-              <v-btn class="control save" width="100%" @click="saveSkin">保存皮肤</v-btn>
-            </v-col>
-            <v-col>
-              <v-btn class="control upload" width="100%" @click="uploadSkin">上传皮肤</v-btn>
-            </v-col>
-            <v-col>
-              <v-btn class="control upload" width="100%" @click="resetSkin">重置皮肤</v-btn>
-            </v-col>
-          </v-row>
-        </v-col>
-
         <v-col cols="12">
           <v-row no-gutters class="skin-controls">
             <div id="canvas" ref="canvas"></div>
@@ -363,132 +283,10 @@ watch(
 
         <v-col cols="12">
           <v-row no-gutters class="editor-controls d-flex justify-space-between align-center">
-            <v-btn-toggle v-model="tool" tile group mandatory>
-              <v-tooltip location="top">
-                <template v-slot:activator="{ props }">
-                  <v-btn value="brush" icon class="brush tool" data-toggle="tooltip" data-placement="top" v-bind="props">
-                    <v-icon>fas fa-paintbrush</v-icon>
-                  </v-btn>
-                </template>
-                <span>画笔</span>
-              </v-tooltip>
 
-              <v-tooltip location="top">
-                <template v-slot:activator="{ props }">
-                  <v-btn value="dropper" icon class="dropper tool" data-toggle="tooltip" data-placement="top"
-                    v-bind="props">
-                    <v-icon>fas fa-eye-dropper</v-icon>
-                  </v-btn>
-                </template>
-                <span>吸取颜色</span>
-              </v-tooltip>
 
-              <v-tooltip location="top">
-                <template v-slot:activator="{ props }">
-                  <v-btn value="bucket" icon class="bucket tool" data-toggle="tooltip" data-placement="top" title="Fill"
-                    v-bind="props">
-                    <v-icon>fas fa-fill</v-icon>
-                  </v-btn>
-                </template>
-                <span>填充</span>
-              </v-tooltip>
 
-              <v-tooltip location="top">
-                <template v-slot:activator="{ props }">
-                  <v-btn value="eraser" icon class="eraser tool" data-toggle="tooltip" data-placement="top" title="Eraser"
-                    v-bind="props">
-                    <v-icon>fas fa-eraser</v-icon>
-                  </v-btn>
-                </template>
-                <span>橡皮擦</span>
-              </v-tooltip>
-            </v-btn-toggle>
 
-            <v-tooltip location="top">
-              <template v-slot:activator="{ props }">
-                <div v-bind="props">
-                  <v-btn value="brightness-up" icon variant="text" class="brightness-up" data-toggle="tooltip"
-                    data-placement="top" title="Increase brightness" :disabled="brightness_up">
-                    <v-icon>fas fa-lightbulb</v-icon>
-                  </v-btn>
-                </div>
-              </template>
-              <span>提高颜色亮度</span>
-            </v-tooltip>
-
-            <v-tooltip location="top">
-              <template v-slot:activator="{ props }">
-                <v-btn value="brightness-down" icon variant="text" class="brightness-down" data-toggle="tooltip"
-                  data-placement="top" title="Decrease brightness" v-bind="props" :disabled="brightness_down">
-                  <v-icon>fa-regular fa-lightbulb</v-icon>
-                </v-btn>
-              </template>
-              <span>降低颜色亮度</span>
-            </v-tooltip>
-
-            <v-tooltip location="top">
-              <template v-slot:activator="{ props }">
-                <v-btn value="zoom-in" icon variant="text" class="zoom-in" data-toggle="tooltip" data-placement="top"
-                  title="Zoom in" v-bind="props" :disabled="zoom_in">
-                  <v-icon>fas fa-magnifying-glass-plus</v-icon>
-                </v-btn>
-              </template>
-              <span>放大</span>
-            </v-tooltip>
-
-            <v-tooltip location="top">
-              <template v-slot:activator="{ props }">
-                <v-btn value="zoom-out" icon variant="text" class="zoom-out" data-toggle="tooltip" data-placement="top"
-                  title="Zoom out" v-bind="props" :disabled="zoom_out">
-                  <v-icon>fas fa-magnifying-glass-minus</v-icon>
-                </v-btn>
-              </template>
-              <span>缩小</span>
-            </v-tooltip>
-
-            <v-tooltip location="top">
-              <template v-slot:activator="{ props }">
-                <v-btn value="move" icon variant="text" class="move" data-toggle="tooltip" data-placement="top"
-                  title="Move skin" v-bind="props" :disabled="move">
-                  <v-icon>fas fa-up-down-left-right</v-icon>
-                </v-btn>
-              </template>
-              <span>移动人物</span>
-            </v-tooltip>
-
-            <v-tooltip location="top">
-              <template v-slot:activator="{ props }">
-                <v-btn value="center" icon variant="text" class="center" data-toggle="tooltip" data-placement="top"
-                  title="Reset view" v-bind="props" :disabled="center">
-                  <v-icon>fas fa-arrows-to-dot</v-icon>
-                </v-btn>
-              </template>
-              <span>回到中心</span>
-            </v-tooltip>
-
-            <v-tooltip location="top" class="undo-tooltip">
-              <template v-slot:activator="{ props }">
-                <div v-bind="props">
-                  <v-btn value="undo" icon variant="text" class="undo" data-toggle="tooltip" data-placement="top"
-                    title="Undo" :disabled="undo">
-                    <v-icon>fas fa-rotate-left</v-icon>
-                  </v-btn>
-                </div>
-              </template>
-              <span>撤销</span>
-            </v-tooltip>
-
-            <v-tooltip location="top" class="redo-tooltip">
-              <template v-slot:activator="{ props }">
-                <div v-bind="props">
-                  <v-btn value="redo" icon variant="text" class="redo" data-toggle="tooltip" data-placement="top"
-                    title="Redo" :disabled="redo">
-                    <v-icon>fas fa-rotate-right</v-icon>
-                  </v-btn>
-                </div>
-              </template>
-              <span>重做</span>
-            </v-tooltip>
           </v-row>
         </v-col>
 

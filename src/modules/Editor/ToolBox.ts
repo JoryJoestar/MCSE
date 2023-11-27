@@ -24,7 +24,6 @@ class ToolBox {
         this.curSelectTool = this.brush;
         this.curTool = 'brush'
         this.history = new History(SkinEditor);
-
         this.brush = new Brush(ToolBox.instance);
         this.bucket = new Bucket(ToolBox.instance);
         this.eraser = new Eraser(ToolBox.instance);
@@ -35,6 +34,7 @@ class ToolBox {
 
     // 切换工具 创造监听
     changeTool = (toolName: String) => {
+        console.log(toolName)
 
         // $(".tool").removeClass("active");
         // $(this).addClass("active");

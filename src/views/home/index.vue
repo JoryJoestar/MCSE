@@ -1,9 +1,15 @@
 <script lang="ts" setup>
 
+const router = useRouter()
+
+const toPages = (path: string) => {
+    router.push(`${path}`)
+}
+
 </script>
 <template>
   <div class="Home">
-    1111
+    <v-btn @click="toPages('/editor')">Editor</v-btn>
   </div>
 </template>
 <style lang="" scoped>

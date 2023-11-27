@@ -9,7 +9,7 @@ onMounted(() => {
 
 </script>
 <template>
-  <div class="Layout">
+  <div class="layout">
     <NavigationBar />
     <Main />
     <BottomBar />

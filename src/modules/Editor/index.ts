@@ -206,10 +206,9 @@ class SkinEditor {
       this.toolBox.dblClick(event);
     });
 
-    document.querySelector('.upgrade')?.addEventListener('click', (event: any) => {
-      // console.log('加载');
-      return (document.querySelector("#upgrade_file") as any).click();
-    });
+    // document.querySelector('.upgrade')?.addEventListener('click', (event: any) => {
+    //   return (document.querySelector("#upgrade_file") as any).click();
+    // });
 
     (document.querySelector("#upgrade_file") as any).addEventListener('change', (event: any) => {
       let file = (document.querySelector("#upgrade_file") as any).files[0];
@@ -228,29 +227,25 @@ class SkinEditor {
     });
 
 
-    document.querySelector('.download')?.addEventListener('click', (event: any) => {
-      console.log('下载');
-      let imageURL = this.skin.skinCanvas().toDataURL();
-      download(imageURL);
-    })
+    // document.querySelector('.download')?.addEventListener('click', (event: any) => {
+    //   console.log('下载');
+    //   let imageURL = this.skin.skinCanvas().toDataURL();
+    //   download(imageURL);
+    // })
 
-    document.querySelector('.save')?.addEventListener('click', (event: any) => {
+    // document.querySelector('.upload')?.addEventListener('click', (event: any) => {
+    //   //  设置localStorage
+    //   let imageURL = this.skin.skinCanvas().toDataURL();
+    //   setSkin(imageURL);
 
-    })
-
-    document.querySelector('.upload')?.addEventListener('click', (event: any) => {
-      //  设置localStorage
-      let imageURL = this.skin.skinCanvas().toDataURL();
-      setSkin(imageURL);
-
-      let skinURL = resizedCanvas(this.renderer.domElement, 0.6).toDataURL("image/png", 2.0);
-      // download(skinURL);
-      let headURL = resizedCanvas(this.skin.headCanvas(), 1).toDataURL("image/png", 2.0);
-      // download(headURL)
-      console.log(`本地存储皮肤原图:${imageURL}`);
-      console.log(`全身截图:`, skinURL);
-      console.log(`头部原图:${headURL}`);
-    })
+    //   let skinURL = resizedCanvas(this.renderer.domElement, 0.6).toDataURL("image/png", 2.0);
+    //   // download(skinURL);
+    //   let headURL = resizedCanvas(this.skin.headCanvas(), 1).toDataURL("image/png", 2.0);
+    //   // download(headURL)
+    //   console.log(`本地存储皮肤原图:${imageURL}`);
+    //   console.log(`全身截图:`, skinURL);
+    //   console.log(`头部原图:${headURL}`);
+    // })
 
   }
 
@@ -351,7 +346,7 @@ class SkinEditor {
 
   // 导入皮肤图片 开始加载
   public initSkin = (url?: string) => {
-    console.log("皮肤加载,e:" + url);
+    // console.log("皮肤加载,e:" + url);
 
     this.isSKIN = !!url;
     this.toSKIN = !!url;
@@ -543,22 +538,7 @@ class SkinEditor {
     this.toolBox.curColor = val;
   }
 
-  // 重置皮肤为ALex和Steve
-  public resetSkin = () => {
 
-    // console.log(this.skin.curModel)
-    let imageUrl;
-
-    this.scene.remove(this.skin.object);
-
-    if (this.skin.curModel === 'Steve') {
-      imageUrl = this.DEFAULT_SKIN_URL
-    } else if (this.skin.curModel === 'Alex') {
-      imageUrl = this.ALEX_SKIN_URL
-    }
-
-    this.initSkin(imageUrl);
-  }
 
   public backToCenter = () => {
     this.orbitControls.reset();
@@ -577,6 +557,47 @@ class SkinEditor {
     this.camera.updateProjectionMatrix();
     this.render();
   }
+
+  public uploadSkin = () => {
+    return (document.querySelector("#upgrade_file") as any).click();
+  }
+
+  public downloadSkin = () => {
+    let imageURL = this.skin.skinCanvas().toDataURL();
+    download(imageURL);
+  }
+
+  public saveDraft = () => {
+    //  设置localStorage
+    let imageURL = this.skin.skinCanvas().toDataURL();
+    setSkin(imageURL);
+
+    let skinURL = resizedCanvas(this.renderer.domElement, 0.6).toDataURL("image/png", 2.0);
+    // download(skinURL);
+    let headURL = resizedCanvas(this.skin.headCanvas(), 1).toDataURL("image/png", 2.0);
+    // download(headURL)
+    console.log(`本地存储皮肤原图:${imageURL}`);
+    console.log(`全身截图:`, skinURL);
+    console.log(`头部原图:${headURL}`);
+  }
+
+  // 重置皮肤为ALex和Steve
+  public resetSkin = () => {
+
+    // console.log(this.skin.curModel)
+    let imageUrl;
+    console.log(this.scene)
+    this.scene.remove(this.skin.object);
+
+    if (this.skin.curModel === 'Steve') {
+      imageUrl = this.DEFAULT_SKIN_URL
+    } else if (this.skin.curModel === 'Alex') {
+      imageUrl = this.ALEX_SKIN_URL
+    }
+
+    this.initSkin(imageUrl);
+  }
+
 }
 
 

@@ -2,7 +2,7 @@
 
 </script>
 <template>
-  <div class="BottomBar">
+  <div class="bottom-bar">
 
   </div>
 </template>

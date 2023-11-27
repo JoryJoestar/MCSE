@@ -12,6 +12,9 @@
 }
 
 .v-list {
-
+    box-shadow: $theme-box-shadow-color 1.95px 1.95px 2.6px !important;
 }
 
+.v-btn {
+    background-color: $theme-bg-color !important;
+}

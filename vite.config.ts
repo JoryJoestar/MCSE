@@ -69,9 +69,8 @@ export default defineConfig({
 
       dirs: [
         'src/views',
-        { dir: 'src/views/home', baseRoute: '' },
-        { dir: 'src/views/mcskineditor', baseRoute: 'mcskineditor' },
-        { dir: 'src/views/market', baseRoute: 'market' },
+        // { dir: 'src/views/home', baseRoute: '' },
+        { dir: 'src/views/editor', baseRoute: '' },
       ],
 
       extendRoute(route) {
@@ -124,11 +123,12 @@ export default defineConfig({
   },
 
   server: {
-    port: 8080, //启动端口
+    port: 12121, //启动端口
     hmr: {
       host: '127.0.0.1',
-      port: 8080
+      port: 12121
     },
+
     // 设置 https 代理
     proxy: {
       '/api': {

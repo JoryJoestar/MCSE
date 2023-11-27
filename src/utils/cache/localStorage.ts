@@ -2,7 +2,7 @@
 
 import CacheKey from "@/constants/cacheKey"
 import { type ThemeName } from "@/hooks/useTheme"
-import { Favorites, TodoSpace, DateAccount, Schedule } from "@/types/projects"
+
 class Cache {
   public name: string
 
@@ -60,34 +60,6 @@ export const setActiveThemeName = (themeName: ThemeName) => {
   cache.set(CacheKey.ACTIVE_THEME_NAME, themeName)
 }
 
-export const getRainFx = () => {
-  return cache.get(CacheKey.RAINFX) as boolean
-}
-export const setRainFx = (rainfx: string) => {
-  cache.set(CacheKey.RAINFX, rainfx)
-}
-
-export const getTodoSpaces = () => {
-  return cache.get(CacheKey.TODOSPACES) as TodoSpace[]
-}
-export const setTodoSpaces = (todoSpaces: TodoSpace[]) => {
-  cache.set(CacheKey.TODOSPACES, todoSpaces)
-}
-
-export const getFavorites = () => {
-  return cache.get(CacheKey.FAVORITES) as Favorites[]
-}
-export const setFavorites = (favorites: Favorites[]) => {
-  cache.set(CacheKey.FAVORITES, favorites)
-}
-
-export const getAccount = () => {
-  return cache.get(CacheKey.ACCOUNT) as DateAccount[]
-}
-export const setAccount = (favorites: DateAccount[]) => {
-  cache.set(CacheKey.ACCOUNT, favorites)
-}
-
 // 本地保存皮肤
 export const setSkin = (imageURL: string) => {
   cache.set(CacheKey.MCSKIN, imageURL);
@@ -95,11 +67,4 @@ export const setSkin = (imageURL: string) => {
 // 返回皮肤
 export const getSkin = () => {
   return cache.get(CacheKey.MCSKIN);
-}
-
-export const getSchedule = () => {
-  return cache.get(CacheKey.SCHEDULE) as Schedule[]
-}
-export const setSchedule = (favorites: Schedule[]) => {
-  cache.set(CacheKey.SCHEDULE, favorites)
 }

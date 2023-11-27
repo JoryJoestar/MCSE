@@ -21,8 +21,6 @@ class ToolBox {
         this.SkinEditor = SkinEditor;
         ToolBox.instance = this;
 
-        this.curSelectTool = this.brush;
-        this.curTool = 'brush'
         this.history = new History(SkinEditor);
         this.brush = new Brush(ToolBox.instance);
         this.bucket = new Bucket(ToolBox.instance);
@@ -34,7 +32,7 @@ class ToolBox {
 
     // 切换工具 创造监听
     changeTool = (toolName: String) => {
-        console.log(toolName)
+        // console.log(toolName)
 
         // $(".tool").removeClass("active");
         // $(this).addClass("active");
@@ -211,7 +209,8 @@ class History {
     }
 
 
-    _pushLoaded = (undoHistoryLength: number, redoHistoryLength: number) => { };
+    _pushLoaded = (undoHistoryLength: number, redoHistoryLength: number) => {
+    };
 
     pushLoaded = (call: (undoHistoryLength: number, redoHistoryLength: number) => void) => {
         this._pushLoaded = call;

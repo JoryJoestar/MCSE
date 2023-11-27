@@ -7,7 +7,7 @@ import { hasKey, offset, siblings, toggle, toggleClass } from '@/utils/js/index'
 import WebGL from 'three/examples/jsm/capabilities/WebGL';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Skin } from './Skin';
-import { PerspectiveCamera, Raycaster, Scene, Vector3, WebGLRenderer, sRGBEncoding } from 'three';
+import { Color, PerspectiveCamera, Raycaster, Scene, Vector3, WebGLRenderer, sRGBEncoding } from 'three';
 import { ModelChangeTool } from './ModelChangeTool';
 import { ToolBox } from './ToolBox';
 import { setSkin } from '@/utils/cache/localStorage';
@@ -56,7 +56,7 @@ class SkinEditor {
 
   constructor() {
     this.canvas = document.getElementById("canvas") as HTMLElement;
-
+    
     SkinEditor.instance = this;
 
     this.toolBox = new ToolBox(this);

@@ -53,9 +53,12 @@ const swatchStyle = computed(() => {
         height: ACTIVE.value ? '3rem' : '2rem',
         width: ACTIVE.value ? '3rem' : '2rem',
         borderRadius: menu.value ? '50%' : '50%',
-        border: ACTIVE.value ? '' : '',
         transition: 'all 300ms ease-in-out'
     }
+})
+
+const activeClass = computed(() => {
+    return ACTIVE.value ? 'active' : ''
 })
 
 onMounted(() => {
@@ -77,11 +80,11 @@ watch(
 </script>
 
 <template>
-    <div id="colorPicker">
+    <div class="colorPicker">
         <v-menu v-model="menu" top nudge-bottom="105" nudge-left="16" :close-on-content-click="false"
             :theme="activeThemeName" open-on-hover>
             <template v-slot:activator="{ props }">
-                <div :style="swatchStyle" v-bind="props" @click="colorIndexChange"></div>
+                <div :class="activeClass" :style="swatchStyle" v-bind="props" @click="colorIndexChange"></div>
             </template>
             <v-card>
                 <v-card-text class="pa-0">

@@ -10,6 +10,8 @@
         height: 5vh;
         display: flex;
         justify-content: center;
+        border-bottom: 1px solid $theme-box-shadow-color !important;
+        z-index: 999;
     }
 
     .app-main {
@@ -23,5 +25,6 @@
         background-color: $theme-bg-color !important;
         top: 5vh !important;
         height: 95vh !important;
+        z-index: 998 !important;
     }
 }

@@ -34,22 +34,27 @@ onMounted(() => { })
                                     加载皮肤
                                 </template>
                             </v-list-item>
-                            <v-list-item value="download" class="download" @click="editorStore.skineditor.downloadSkin()">
-                                <template v-slot:prepend>
-                                    下载皮肤
-                                </template>
-                            </v-list-item>
                             <v-list-item value="saveDraft" class="saveDraft" @click="editorStore.skineditor.saveDraft()">
                                 <template v-slot:prepend>
                                     保存草稿
                                 </template>
-
                             </v-list-item>
                             <v-list-item value="reset" class="reset" @click="editorStore.skineditor.resetSkin()">
                                 <template v-slot:prepend>
                                     重置皮肤
                                 </template>
+                            </v-list-item>
 
+                            <v-list-item value="download" class="download" @click="editorStore.skineditor.downloadSkin()">
+                                <template v-slot:prepend>
+                                    下载皮肤
+                                </template>
+                            </v-list-item>
+                            <v-list-item value="downloadSkinHead" class="downloadSkinHead"
+                                @click="editorStore.skineditor.downloadSkinHead()">
+                                <template v-slot:prepend>
+                                    下载头像
+                                </template>
                             </v-list-item>
                         </v-list>
                     </v-menu>
@@ -142,7 +147,7 @@ onMounted(() => { })
             <span>缩小</span>
         </v-tooltip>
 
-        <v-tooltip location="top">
+        <!-- <v-tooltip location="top">
             <template v-slot:activator="{ props }">
                 <v-btn value="move" icon variant="text" class="move" data-toggle="tooltip" data-placement="top"
                     title="Move skin" v-bind="props" :disabled="editorStore.move">
@@ -150,13 +155,13 @@ onMounted(() => { })
                 </v-btn>
             </template>
             <span>移动人物</span>
-        </v-tooltip>
+        </v-tooltip> -->
 
         <v-tooltip location="top">
             <template v-slot:activator="{ props }">
                 <v-btn value="center" icon variant="text" class="center" data-toggle="tooltip" data-placement="top"
                     title="Reset view" v-bind="props" :disabled="editorStore.center">
-                    <v-icon>fas fa-arrows-to-dot</v-icon>
+                    <v-icon><i class="fa-solid fa-location-crosshairs"></i></v-icon>
                 </v-btn>
             </template>
             <span>回到中心</span>

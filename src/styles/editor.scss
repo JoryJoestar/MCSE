@@ -30,107 +30,92 @@
     -ms-interpolation-mode: nearest-neighbor;
 }
 
-#bodyparts {
-    position: absolute;
-    top: 344px;
-    left: 18px;
-    height: 150px;
-    width: 150px;
-}
-
 .bodyparts {
-    position: relative;
-    width: 65px;
-    height: 150px;
-    float: left;
-}
+    display: flex;
+    justify-content: space-evenly;
+    &-btn {
+        position: relative;
+        width: 65px;
+        height: 150px;
+        margin-top: 1rem;
+        display: flex;
+        .bodypart {
+            position: absolute;
+            background-image: url(/images/skin/default_skin@3x.png);
+            cursor: pointer;
+        }
 
-.bodyparts span {
-    position: absolute;
-    width: 51px;
-    text-align: center;
-    display: block;
-    font-size: 12px;
-    left: 0;
-    top: -25px;
-    user-select: none;
-}
+        .bodypart.hidden {
+            background-image: url(/images/skin/default_skin_disabled@3x.png);
+            display: block !important;
+            visibility: visible !important;
+        }
 
-.bodypart {
-    position: absolute;
-    background-image: url(/images/skin/default_skin@3x.png);
-    cursor: pointer;
-}
+        .bodypart.alex {
+            background-image: url(/images/skin/alex@3x.png);
+        }
 
-.bodypart.hidden {
-    background-image: url(/images/skin/default_skin_disabled@3x.png);
-    display: block !important;
-    visibility: visible !important;
-}
+        .bodypart.hidden.alex {
+            background-image: url(/images/skin/alex_disabled@3x.png);
+        }
 
-.bodypart.alex {
-    background-image: url(/images/skin/alex@3x.png);
-}
+        .bodypart.head {
+            width: 24px;
+            height: 24px;
+            top: 0;
+            left: 13px;
+            background-position: -24px -24px;
+        }
 
-.bodypart.hidden.alex {
-    background-image: url(/images/skin/alex_disabled@3x.png);
-}
+        .bodypart.torso {
+            width: 24px;
+            height: 36px;
+            top: 25px;
+            left: 13px;
+            background-position: -60px -60px;
+        }
 
-.bodypart.head {
-    width: 24px;
-    height: 24px;
-    top: 0;
-    left: 13px;
-    background-position: -24px -24px;
-}
+        .bodypart.arm_left {
+            width: 12px;
+            height: 36px;
+            top: 25px;
+            left: 38px;
+            background-position: -132px -60px;
+        }
 
-.bodypart.torso {
-    width: 24px;
-    height: 36px;
-    top: 25px;
-    left: 13px;
-    background-position: -60px -60px;
-}
+        .bodypart.arm_right {
+            width: 12px;
+            height: 36px;
+            top: 25px;
+            left: 0;
+            background-position: -132px -60px;
+        }
 
-.bodypart.arm_left {
-    width: 12px;
-    height: 36px;
-    top: 25px;
-    left: 38px;
-    background-position: -132px -60px;
-}
+        .bodypart.arm_left.alex {
+            width: 9px;
+        }
 
-.bodypart.arm_right {
-    width: 12px;
-    height: 36px;
-    top: 25px;
-    left: 0;
-    background-position: -132px -60px;
-}
+        .bodypart.arm_right.alex {
+            width: 9px;
+            left: 3px;
+        }
 
-.bodypart.arm_left.alex {
-    width: 9px;
-}
+        .bodypart.leg_left {
+            width: 12px;
+            height: 36px;
+            top: 62px;
+            left: 25px;
+            background-position: -12px -60px;
+        }
 
-.bodypart.arm_right.alex {
-    width: 9px;
-    left: 3px;
-}
-
-.bodypart.leg_left {
-    width: 12px;
-    height: 36px;
-    top: 62px;
-    left: 25px;
-    background-position: -12px -60px;
-}
-
-.bodypart.leg_right {
-    width: 11px;
-    height: 36px;
-    top: 62px;
-    left: 13px;
-    background-position: -12px -60px;
+        .bodypart.leg_right {
+            width: 11px;
+            height: 36px;
+            top: 62px;
+            left: 13px;
+            background-position: -12px -60px;
+        }
+    }
 }
 
 .toggle-select .bodyparts {
@@ -259,11 +244,15 @@ a.body-selector.active {
     }
 }
 
-// bar-controls
-.bar-controls {
-}
-
-// model-controls
-
-.model-controls {
+.color-controls {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 1rem;
+    &-item {
+        width: 33%;
+        height: 4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }

@@ -293,7 +293,7 @@ class SkinEditor {
   private countRect() {
 
     const editorCanvas = (document.getElementById("editorCanvas") as HTMLDivElement).getBoundingClientRect();
-    
+
     let width = editorCanvas.width;
     let height = editorCanvas.height;
 
@@ -566,6 +566,11 @@ class SkinEditor {
   public downloadSkin = () => {
     let imageURL = this.skin.skinCanvas().toDataURL();
     download(imageURL);
+  }
+
+  public downloadSkinHead = () => {
+    let headURL = resizedCanvas(this.skin.headCanvas(), 1).toDataURL("image/png", 2.0);
+    download(headURL);
   }
 
   public saveDraft = () => {

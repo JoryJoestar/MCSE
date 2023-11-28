@@ -13,6 +13,10 @@
 
 ![Alt text](/public/show.png)
 
+## 在线体验网址
+
+[mcse.josenong.top](mcse.josenong.top) 
+
 ## 运行项目
 
 安装依赖

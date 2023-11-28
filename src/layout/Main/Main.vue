@@ -11,6 +11,7 @@ const key = computed(() => {
 </script>
 <template>
   <div class="app-main">
+
     <RouterView v-slot="{ Component }">
       <Transition name="fade" mode="out-in">
         <KeepAlive>

@@ -42,7 +42,6 @@ const colorChangeEmit = () => {
     emit("colorChangeEmit", param);
 }
 
-
 const color = ref('')
 
 const ACTIVE = ref<boolean>(false);
@@ -80,7 +79,7 @@ watch(
 <template>
     <div id="colorPicker">
         <v-menu v-model="menu" top nudge-bottom="105" nudge-left="16" :close-on-content-click="false"
-            :theme="activeThemeName">
+            :theme="activeThemeName" open-on-hover>
             <template v-slot:activator="{ props }">
                 <div :style="swatchStyle" v-bind="props" @click="colorIndexChange"></div>
             </template>

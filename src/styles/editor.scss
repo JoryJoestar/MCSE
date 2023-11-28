@@ -7,12 +7,12 @@
 }
 
 .hidden {
-    display: none!important;
-    visibility: hidden!important
+    display: none !important;
+    visibility: hidden !important;
 }
 
 #canvas {
-    height: 490px;
+    height: 100%;
     width: 100%;
     cursor: crosshair;
 }

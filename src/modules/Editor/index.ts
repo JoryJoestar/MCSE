@@ -56,7 +56,7 @@ class SkinEditor {
 
   constructor() {
     this.canvas = document.getElementById("canvas") as HTMLElement;
-    
+
     SkinEditor.instance = this;
 
     this.toolBox = new ToolBox(this);
@@ -119,7 +119,7 @@ class SkinEditor {
 
   private initListener() {
     // 随浏览器窗口大小发生变化
-    // window.addEventListener("resize", this.onWindowResize);
+    window.addEventListener("resize", this.onWindowResize);
 
     // canvas
     this.initCanvasListener();
@@ -292,10 +292,10 @@ class SkinEditor {
   // 计算canvas 宽 高
   private countRect() {
 
-    let width = (document.getElementById("skineditor") as any).offsetWidth;
-    // let height = this.mobileVersion() ? 460 : 490;
-    let height = 490;
-
+    const editorCanvas = (document.getElementById("editorCanvas") as HTMLDivElement).getBoundingClientRect();
+    
+    let width = editorCanvas.width;
+    let height = editorCanvas.height;
 
     if (width != this.WIDTH || height != this.HEIGHT) {
       this.WIDTH = width;
@@ -307,7 +307,8 @@ class SkinEditor {
   public onWindowResize = () => {
     // (this.renderer.setSize(this.WIDTH * this.MULTISAMPLING, this.HEIGHT), this.camera.aspect = this.WIDTH / this.HEIGHT, this.camera.updateProjectionMatrix())
     this.countRect();
-    this.renderer.setSize(this.WIDTH * this.MULTISAMPLING, this.HEIGHT);
+    // console.log(this.renderer)
+    this.renderer.setSize(this.WIDTH * this.MULTISAMPLING, this.HEIGHT * this.MULTISAMPLING);
     this.camera.aspect = this.WIDTH / this.HEIGHT;
     this.camera.updateProjectionMatrix();
 

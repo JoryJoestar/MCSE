@@ -17,6 +17,10 @@
 
 .v-btn {
     background-color: $theme-bg-color !important;
+    min-width: 0px !important;
+}
+.v-btn:hover {
+    background: $input-focus-bg-color !important;
 }
 
 .v-list-item {

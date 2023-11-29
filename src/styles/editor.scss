@@ -33,11 +33,24 @@
 .bodyparts {
     display: flex;
     justify-content: space-evenly;
+    span {
+        text-align: center;
+    }
+    &-body {
+        display: flex;
+        flex-direction: column;
+    }
+    &-overlay {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
     &-btn {
         position: relative;
-        width: 65px;
-        height: 150px;
-        margin-top: 1rem;
+        width: 50px;
+        height: 100px;
+        margin: 0.5rem;
         display: flex;
         .bodypart {
             position: absolute;
@@ -244,15 +257,3 @@ a.body-selector.active {
     }
 }
 
-.color-controls {
-    display: flex;
-    flex-wrap: wrap;
-    padding-bottom: 1rem;
-    &-item {
-        width: 33%;
-        height: 4rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}

@@ -68,7 +68,7 @@ onMounted(() => { })
             <v-tooltip>
                 <template v-slot:activator="{ props }">
                     <v-btn value="brush" icon class="brush tool" data-toggle="tooltip" data-placement="top" v-bind="props">
-                        <v-icon>fas fa-paintbrush</v-icon>
+                        <v-icon size="small">fas fa-paintbrush</v-icon>
                     </v-btn>
                 </template>
                 <span>画笔</span>
@@ -78,7 +78,7 @@ onMounted(() => { })
                 <template v-slot:activator="{ props }">
                     <v-btn value="dropper" icon class="dropper tool" data-toggle="tooltip" data-placement="top"
                         v-bind="props">
-                        <v-icon>fas fa-eye-dropper</v-icon>
+                        <v-icon size="small">fas fa-eye-dropper</v-icon>
                     </v-btn>
                 </template>
                 <span>吸取颜色</span>
@@ -88,7 +88,7 @@ onMounted(() => { })
                 <template v-slot:activator="{ props }">
                     <v-btn value="bucket" icon class="bucket tool" data-toggle="tooltip" data-placement="top" title="Fill"
                         v-bind="props">
-                        <v-icon>fas fa-fill</v-icon>
+                        <v-icon size="small">fas fa-fill</v-icon>
                     </v-btn>
                 </template>
                 <span>填充</span>
@@ -98,7 +98,7 @@ onMounted(() => { })
                 <template v-slot:activator="{ props }">
                     <v-btn value="eraser" icon class="eraser tool" data-toggle="tooltip" data-placement="top" title="Eraser"
                         v-bind="props">
-                        <v-icon>fas fa-eraser</v-icon>
+                        <v-icon size="small">fas fa-eraser</v-icon>
                     </v-btn>
                 </template>
                 <span>橡皮擦</span>
@@ -107,31 +107,9 @@ onMounted(() => { })
 
         <v-tooltip location="top">
             <template v-slot:activator="{ props }">
-                <div v-bind="props">
-                    <v-btn value="brightness-up" icon variant="text" class="brightness-up" data-toggle="tooltip"
-                        data-placement="top" title="Increase brightness" :disabled="editorStore.brightness_up">
-                        <v-icon>fas fa-lightbulb</v-icon>
-                    </v-btn>
-                </div>
-            </template>
-            <span>提高颜色亮度</span>
-        </v-tooltip>
-
-        <v-tooltip location="top">
-            <template v-slot:activator="{ props }">
-                <v-btn value="brightness-down" icon variant="text" class="brightness-down" data-toggle="tooltip"
-                    data-placement="top" title="Decrease brightness" v-bind="props" :disabled="editorStore.brightness_down">
-                    <v-icon>fa-regular fa-lightbulb</v-icon>
-                </v-btn>
-            </template>
-            <span>降低颜色亮度</span>
-        </v-tooltip>
-
-        <v-tooltip location="top">
-            <template v-slot:activator="{ props }">
-                <v-btn value="zoom-in" icon variant="text" class="zoom-in" data-toggle="tooltip" data-placement="top"
+                <v-btn value="zoom-in" variant="text" class="zoom-in" data-toggle="tooltip" data-placement="top"
                     title="Zoom in" v-bind="props" :disabled="editorStore.zoom_in">
-                    <v-icon>fas fa-magnifying-glass-plus</v-icon>
+                    <v-icon size="large">fas fa-magnifying-glass-plus</v-icon>
                 </v-btn>
             </template>
             <span>放大</span>
@@ -139,29 +117,19 @@ onMounted(() => { })
 
         <v-tooltip location="top">
             <template v-slot:activator="{ props }">
-                <v-btn value="zoom-out" icon variant="text" class="zoom-out" data-toggle="tooltip" data-placement="top"
+                <v-btn value="zoom-out" variant="text" class="zoom-out" data-toggle="tooltip" data-placement="top"
                     title="Zoom out" v-bind="props" :disabled="editorStore.zoom_out">
-                    <v-icon>fas fa-magnifying-glass-minus</v-icon>
+                    <v-icon size="large">fas fa-magnifying-glass-minus</v-icon>
                 </v-btn>
             </template>
             <span>缩小</span>
         </v-tooltip>
 
-        <!-- <v-tooltip location="top">
-            <template v-slot:activator="{ props }">
-                <v-btn value="move" icon variant="text" class="move" data-toggle="tooltip" data-placement="top"
-                    title="Move skin" v-bind="props" :disabled="editorStore.move">
-                    <v-icon>fas fa-up-down-left-right</v-icon>
-                </v-btn>
-            </template>
-            <span>移动人物</span>
-        </v-tooltip> -->
-
         <v-tooltip location="top">
             <template v-slot:activator="{ props }">
-                <v-btn value="center" icon variant="text" class="center" data-toggle="tooltip" data-placement="top"
+                <v-btn value="center" variant="text" class="center" data-toggle="tooltip" data-placement="top"
                     title="Reset view" v-bind="props" :disabled="editorStore.center">
-                    <v-icon><i class="fa-solid fa-location-crosshairs"></i></v-icon>
+                    <v-icon size="large"><i class="fa-solid fa-location-crosshairs"></i></v-icon>
                 </v-btn>
             </template>
             <span>回到中心</span>
@@ -170,9 +138,9 @@ onMounted(() => { })
         <v-tooltip location="top" class="undo-tooltip">
             <template v-slot:activator="{ props }">
                 <div v-bind="props">
-                    <v-btn value="undo" icon variant="text" class="undo" data-toggle="tooltip" data-placement="top"
-                        title="Undo" :disabled="editorStore.undo">
-                        <v-icon>fas fa-rotate-left</v-icon>
+                    <v-btn value="undo" variant="text" class="undo" data-toggle="tooltip" data-placement="top" title="Undo"
+                        :disabled="editorStore.undo">
+                        <v-icon size="large">fas fa-rotate-left</v-icon>
                     </v-btn>
                 </div>
             </template>
@@ -182,9 +150,9 @@ onMounted(() => { })
         <v-tooltip location="top" class="redo-tooltip">
             <template v-slot:activator="{ props }">
                 <div v-bind="props">
-                    <v-btn value="redo" icon variant="text" class="redo" data-toggle="tooltip" data-placement="top"
-                        title="Redo" :disabled="editorStore.redo">
-                        <v-icon>fas fa-rotate-right</v-icon>
+                    <v-btn value="redo" variant="text" class="redo" data-toggle="tooltip" data-placement="top" title="Redo"
+                        :disabled="editorStore.redo">
+                        <v-icon size="large">fas fa-rotate-right</v-icon>
                     </v-btn>
                 </div>
             </template>
@@ -193,7 +161,7 @@ onMounted(() => { })
 
         <v-spacer></v-spacer>
 
-        <v-btn variant="plain" @click="toggleDark">
+        <v-btn variant="text" @click="toggleDark">
             <v-icon :icon="`${isDark ? 'fas fa-moon' : 'fas fa-sun'}`"></v-icon>
         </v-btn>
     </v-toolbar>

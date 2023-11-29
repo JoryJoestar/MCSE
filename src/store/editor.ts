@@ -1,6 +1,7 @@
 import { SkinEditor } from '@/modules/Editor'
 import { defineStore } from 'pinia'
-import Bus from '@/utils/Bus';
+import { debounce } from '@/utils/js';
+import { getColorSwatches, getSkin } from '@/utils/cache/localStorage';
 
 export const useEditorStore = defineStore('editor', () => {
 
@@ -15,9 +16,6 @@ export const useEditorStore = defineStore('editor', () => {
       skineditor.value.toolBox.changeTool(newValue);
     },
   )
-  const brightness_up = ref(true);
-  const brightness_down = ref(true);
-
   const zoom_in = ref(false);
   const zoom_out = ref(false);
 
@@ -100,8 +98,6 @@ export const useEditorStore = defineStore('editor', () => {
       model.value = curModel;
       skineditor.value = skineditorValue
 
-      initColor();
-
       modelChangeTool.value = skineditor.value.modelChangeTool;
       modelChangeTool?.value.initModelLoaded((val: any) => {
         console.log(val);
@@ -121,83 +117,45 @@ export const useEditorStore = defineStore('editor', () => {
     })
   }
 
-  const color = ref<string>('');
-  const colorIndex = ref<number>(0);
-  // 随机产生颜色
-  const RandomColor = () => {
-    return Array(6).fill(1).reduce(v => {
-      return v + (~~(Math.random() * 16)).toString(16);
-    }, "#")
-  }
-  const colorItems = [
-    {
-      "index": 0,
-      "color": ref<string>(RandomColor()),
+  const colorSwatches = ref<string[][]>(getColorSwatches() ? getColorSwatches() : [
+    ['#FF0000', '#AA0000', '#550000'],
+    ['#FFFF00', '#AAAA00', '#555500'],
+    ['#00FF00', '#00AA00', '#005500'],
+    ['#00FFFF', '#00AAAA', '#005555'],
+    ['#0000FF', '#0000AA', '#000055'],
+  ]);
+  const color = ref<string>(colorSwatches.value[0][0]);
+  watch(
+    color, (newValue: string) => {
+      shiftColorSwatches(newValue);
     },
-    {
-      "index": 1,
-      "color": ref<string>(RandomColor()),
-    },
-    {
-      "index": 2,
-      "color": ref<string>(RandomColor()),
-    },
-    {
-      "index": 3,
-      "color": ref<string>(RandomColor()),
-    },
-    {
-      "index": 4,
-      "color": ref<string>(RandomColor()),
-    },
-    {
-      "index": 5,
-      "color": ref<string>(RandomColor()),
-    },
-  ]
-
-  // 修改当选颜色Active
-  const colorIndexChange = (param: any) => {
-    Bus.emit(`colorIndexChangeEmit${colorIndex.value}`, false);
-
-    Bus.emit(`colorIndexChangeEmit${param.index}`, true);
-
-    colorIndex.value = param.index;
-  }
+  )
+  const shiftColorSwatches = debounce((color: string) => {
+    const colorSwatchesX = colorSwatches.value.length;
+    const colorSwatchesY = colorSwatches.value[0].length;
+    for (let i = colorSwatchesY - 1; i >= 0; i--) {
+      for (let j = colorSwatchesX - 1; j >= 0; j--) {
+        if (j === 0 && i == 0) {
+          colorSwatches.value[0][0] = color;
+        }
+        else if (j === 0) {
+          colorSwatches.value[j][i] = colorSwatches.value[colorSwatchesX - 1][i - 1];
+        } else {
+          colorSwatches.value[j][i] = colorSwatches.value[j - 1][i];
+        }
+      }
+    }
+  }, 500);
 
   // dropper 吸取后返回到调色板
-  const dropperColorChange = (color: any) => {
-    let param = {
-      index: colorIndex.value,
-      color: color
-    }
-
-    Bus.emit(`dropperColorChangeEmit${colorIndex.value}`, param);
-
-    colorChange({ color: color });
+  const dropperColorChange = (val: any) => {
+    color.value = val
   }
-
-  // 修改选择当亲颜色的值
-  const colorChange = (param: any) => {
-    color.value = param.color;
-    colorItems[colorIndex.value].color.value = param.color;
-    skineditor.value.changeColor(color.value);
-  }
-
-  const initColor = () => {
-    // 初始化颜色
-    colorIndexChange({ index: 0 })
-    colorChange({ color: colorItems[colorIndex.value].color.value });
-
-  }
-
 
   return {
     skineditor,
     initSkineditor,
     tool,
-    brightness_up,
-    brightness_down,
     zoom_in,
     zoom_out,
     move,
@@ -213,10 +171,8 @@ export const useEditorStore = defineStore('editor', () => {
     modelSelect,
     modelChange,
     switchGrid,
-    colorIndex,
-    colorItems,
-    colorIndexChange,
-    colorChange,
-    initColor,
+    color,
+    colorSwatches,
+    shiftColorSwatches
   }
 })

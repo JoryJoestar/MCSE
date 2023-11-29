@@ -62,9 +62,18 @@ export const setActiveThemeName = (themeName: ThemeName) => {
 
 // 本地保存皮肤
 export const setSkin = (imageURL: string) => {
-  cache.set(CacheKey.MCSKIN, imageURL);
+  cache.set(CacheKey.MC_SKIN, imageURL);
 }
 // 返回皮肤
 export const getSkin = () => {
-  return cache.get(CacheKey.MCSKIN);
+  return cache.get(CacheKey.MC_SKIN);
+}
+
+// 设置颜色
+export const setColorSwatches = (color_swatches: string[][]) => {
+  cache.set(CacheKey.COLOR_SWATCHES, color_swatches);
+}
+
+export const getColorSwatches = () => {
+  return cache.get(CacheKey.COLOR_SWATCHES);
 }

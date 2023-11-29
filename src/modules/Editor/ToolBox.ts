@@ -57,11 +57,6 @@ class ToolBox {
 
     }
 
-    // 亮度
-    brightness = (e: any) => {
-
-    }
-
     // 颜色
     drawing = (e: any) => {
         // 判断是触摸点击 还是 鼠标点击

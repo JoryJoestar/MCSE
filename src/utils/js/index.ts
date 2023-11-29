@@ -138,12 +138,12 @@ export const offset = (ele: any) => {
  * @returns 
  */
 
-export const debounce = (func: Function, delay: number) => {
-    let timer: ReturnType<typeof setTimeout>;
-    return (...args: any[]) => {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-            func(...args);
+export const debounce = <T extends (...args: any[]) => any>(func: T, delay: number) => {
+    let timeoutId: NodeJS.Timeout;
+    return (...args: Parameters<T>): void => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            func.apply(this, args);
         }, delay);
     };
 };
@@ -154,19 +154,29 @@ export const debounce = (func: Function, delay: number) => {
  * @param delay 
  * @returns 
  */
-export const throttle = (func: Function, delay: number) => {
-    let timer: ReturnType<typeof setTimeout>;
-    let lastTime = 0;
-    return (...args: any[]) => {
-        const currentTime = Date.now();
-        if (currentTime - lastTime > delay) {
-            func(...args);
-            lastTime = currentTime;
+export const throttle = <T extends (...args: any[]) => any>(func: T, delay: number) => {
+    let isThrottled = false;
+    let lastArgs: Parameters<T> | null = null;
+    let timeoutId: NodeJS.Timeout | null = null;
+
+    const execute = () => {
+        if (lastArgs) {
+            func.apply(this, lastArgs);
+            lastArgs = null;
+            timeoutId = setTimeout(execute, delay);
         } else {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-                func(...args);
-            }, delay);
+            isThrottled = false;
+            timeoutId = null;
+        }
+    };
+
+    return (...args: Parameters<T>): void => {
+        if (isThrottled) {
+            lastArgs = args;
+        } else {
+            func.apply(this, args);
+            isThrottled = true;
+            timeoutId = setTimeout(execute, delay);
         }
     };
 };

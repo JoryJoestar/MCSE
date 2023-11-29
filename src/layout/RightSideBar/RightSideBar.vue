@@ -11,7 +11,7 @@ const editorStore = useEditorStore();
             <div class="modelShow">
                 <v-list-item font-size-3 px-2>模型显示</v-list-item>
                 <v-list-item>
-                    <div class="selector bodyparts">
+                    <div class="selector bodyparts" pb-4>
                         <div class="bodyparts-body">
                             <span>Body</span>
                             <div class="bodyparts-btn">
@@ -90,11 +90,8 @@ const editorStore = useEditorStore();
             <div class="colorPicker">
                 <v-list-item px-2 font-size-3>颜色选择</v-list-item>
                 <v-list-item>
-                    <div class="color-controls">
-                        <ColorPicker class="color-controls-item" v-for="item in editorStore.colorItems" :key="item.index"
-                            :index="item.index" :active="editorStore.colorIndex" :InitialColor="item.color"
-                            @colorIndexChangeEmit="editorStore.colorIndexChange" @colorChangeEmit="editorStore.colorChange">
-                        </ColorPicker>
+                    <div class="color-controls" my-4>
+                        <ColorPicker class="color-controls-item"></ColorPicker>
                     </div>
                 </v-list-item>
             </div>
@@ -104,9 +101,8 @@ const editorStore = useEditorStore();
             <div class="modelSelect">
                 <v-list-item px-2 font-size-3>人物模型</v-list-item>
                 <v-list-item p-4>
-                    <v-select class="" :items="editorStore.modelItems" label="模型" variant="outlined"
-                        v-model="editorStore.model" :disabled="editorStore.modelSelect"
-                        @update:modelValue="editorStore.modelChange"></v-select>
+                    <v-select class="" :items="editorStore.modelItems" variant="outlined" v-model="editorStore.model"
+                        :disabled="editorStore.modelSelect" @update:modelValue="editorStore.modelChange"></v-select>
                 </v-list-item>
             </div>
 
@@ -115,17 +111,17 @@ const editorStore = useEditorStore();
             <div class="poselSelect">
                 <v-list-item px-2 font-size-3>人物姿势</v-list-item>
                 <v-list-item p-4>
-                    <v-select class="" :items="editorStore.poseItems" label="姿势" variant="outlined"
+                    <v-select class="" :items="editorStore.poseItems" variant="outlined"
                         v-model="editorStore.pose"></v-select>
                 </v-list-item>
             </div>
 
             <v-divider mx-2></v-divider>
-            
+
             <div class="gridSwitch">
-                <v-list-item px-2 font-size-3>网格开关</v-list-item>
+                <v-list-item px-2 font-size-3>模型网格</v-list-item>
                 <v-list-item p-4>
-                    <v-switch v-model="editorStore.switchGrid" inset prepend-icon="fas fa-border-all">
+                    <v-switch v-model="editorStore.switchGrid" :color="editorStore.color">
                     </v-switch>
                 </v-list-item>
             </div>

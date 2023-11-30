@@ -80,9 +80,9 @@ export const getColorSwatches = () => {
 }
 
 // 设置编辑操作信息
-export const setControlsHishtory = (controls_history: ControlsHistory) => {
+export const setControlsHistory = (controls_history: ControlsHistory) => {
   cache.set(CacheKey.CONTROLS_HISTORY, controls_history);
 }
-export const getControlsHishtory = () => {
+export const getControlsHistory = () => {
   return cache.get(CacheKey.CONTROLS_HISTORY);
 }

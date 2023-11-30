@@ -1,5 +1,5 @@
 
 export type ControlsHistory = {
-  undo_Histroy: Array<any>
+  undo_History: Array<any>
   redo_History: Array<any>
 }

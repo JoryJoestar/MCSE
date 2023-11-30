@@ -172,7 +172,7 @@ class History {
     undo = () => {
         let e = this.undoHistoryJSON.pop();
         if (e) {
-            console.log('undo')
+            // console.log('undo')
             this.redoHistoryJSON.push(e);
             e.curSelectTool.undo(e.ctx, e.x, e.y, e.parent, e.plane, e.color, e.data);
             e.parent.object.update();
@@ -185,7 +185,7 @@ class History {
     redo = () => {
         let e = this.redoHistoryJSON.pop();
         if (e) {
-            console.log('redo')
+            // console.log('redo')
             this.undoHistoryJSON.push(e);
             e.curSelectTool.draw(e.ctx, e.x, e.y, e.parent, e.plane, e.color, e.data);
             e.parent.object.update();
@@ -241,6 +241,11 @@ class History {
 
     length = () => {
         return this.undoHistoryJSON.length;
+    }
+
+    setCacheHistory = (unoHistory: [], redoHistory: []) => {
+        this.undoHistoryJSON = unoHistory;
+        this.redoHistoryJSON = redoHistory;
     }
 }
 

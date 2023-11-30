@@ -180,3 +180,17 @@ export const throttle = <T extends (...args: any[]) => any>(func: T, delay: numb
         }
     };
 };
+
+
+export const circularSafeStringify = (obj: any): string => {
+    const seen = new WeakSet();
+    return JSON.stringify(obj, (key, value) => {
+        if (typeof value === "object" && value !== null) {
+            if (seen.has(value)) {
+                return "[Circular Reference]";
+            }
+            seen.add(value);
+        }
+        return value;
+    });
+}

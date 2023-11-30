@@ -1,6 +1,6 @@
 import { SkinEditor } from '@/modules/Editor'
 import { defineStore } from 'pinia'
-import { debounce } from '@/utils/js';
+import { circularSafeStringify, debounce } from '@/utils/js';
 import { getColorSwatches, getSkin } from '@/utils/cache/localStorage';
 
 export const useEditorStore = defineStore('editor', () => {
@@ -102,7 +102,6 @@ export const useEditorStore = defineStore('editor', () => {
 
       modelChangeTool.value = skineditor.value.modelChangeTool;
       modelChangeTool?.value.initModelLoaded((val: any) => {
-        console.log(val);
         modelSelect.value = val;
       })
     })
@@ -111,7 +110,8 @@ export const useEditorStore = defineStore('editor', () => {
     skineditorValue.toolBox.history.pushLoaded((undoHistoryLength_val: number, redoHistoryLength_val: number) => {
       undoHistoryLength.value = undoHistoryLength_val;
       redoHistoryLength.value = redoHistoryLength_val;
-      console.log(skineditor.value.toolBox.history)
+      // console.log(skineditor.value.toolBox.history.undoHistoryJSON)
+      // console.log(circularSafeStringify(skineditor.value.toolBox.history.undoHistoryJSON))
     })
 
     // dropper 吸取后回调
@@ -158,11 +158,6 @@ export const useEditorStore = defineStore('editor', () => {
   const dropperColorChange = (val: any) => {
     color.value = val
   }
-
-
-  const controls_history = ''
-
-
 
   return {
     skineditor,

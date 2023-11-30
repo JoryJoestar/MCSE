@@ -12,7 +12,6 @@ export const useEditorStore = defineStore('editor', () => {
 
   watch(
     tool, (newValue: string) => {
-      console.log(newValue)
       skineditor.value.toolBox.changeTool(newValue);
     },
   )

@@ -139,17 +139,17 @@ class SkinEditor {
       let drawing = this.toolBox.startDrawing(event);
       if (event.button === 0) {
         if (!drawing) {
-          this.canvas.style.cursor = 'grab';
+          this.canvas.style.cursor = 'grabbing';
         }
       }
       else if (event.button === 2) {
-        this.canvas.style.cursor = 'grab';
+        this.canvas.style.cursor = 'grabbing';
       }
     })
 
     this.canvas.addEventListener('mouseup', (event: MouseEvent) => {
 
-      this.canvas.style.cursor = 'crosshair';
+      this.canvas.style.cursor = 'grab';
 
     })
 
@@ -211,6 +211,7 @@ class SkinEditor {
     this.canvas.addEventListener('touchmove', (event: TouchEvent) => {
       this.updateGrid(event);
       this.toolBox.move(event);
+
     });
 
     // 进入canvas 识别到 皮肤位置 渲染网格
@@ -488,9 +489,17 @@ class SkinEditor {
           this.skin.bodyparts[r].base.grid.box.visible = this.isInSkinGrid && this.skin.bodyparts[r].base.visible;
         }
         this.skin.bodyparts[r].overlay.grid.box.visible = this.isInSkinGrid && this.skin.bodyparts[r].overlay.visible;
+        if (this.skin.bodyparts[r].base.grid.box.visible) {
+          this.canvas.style.cursor = 'crosshair';
+        } else {
+          this.canvas.style.cursor = 'grab';
+        }
+
       }
       this.render();
     }
+
+
 
     if (type === 'touch') {
       console.log('touch');
@@ -597,7 +606,7 @@ class SkinEditor {
     let imageURL = this.skin.skinCanvas().toDataURL();
     setSkin(imageURL);
 
-    let skinURL = resizedCanvas(this.renderer.domElement, 0.6).toDataURL("image/png", 2.0);
+    let skinURL = resizedCanvas(this.renderer.domElement, 1).toDataURL("image/png", 2.0);
     // download(skinURL);
     let headURL = resizedCanvas(this.skin.headCanvas(), 1).toDataURL("image/png", 2.0);
     // download(headURL)

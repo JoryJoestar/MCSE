@@ -7,6 +7,7 @@ class CacheKey {
     static MC_SKIN = `${SYSTEM_NAME}-mc-skin`
     static COLOR_SWATCHES = `${SYSTEM_NAME}-color-swatches`
     static CONTROLS_HISTORY = `${SYSTEM_NAME}-controls-history`
+    static DRAFT_HISTORY = `${SYSTEM_NAME}-draft-history`
 }
 
 

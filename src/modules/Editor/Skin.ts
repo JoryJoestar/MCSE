@@ -288,7 +288,7 @@ class Skin {
     const head = this.bodyparts[0];
 
     // scale 放大 清晰度
-    let scale = 4;
+    let scale = 10;
     // console.log(head, head.overlay.visible);
     headModelCanvas.width = 8 * scale;
     headModelCanvas.height = 8 * scale;
@@ -338,6 +338,10 @@ class Skin {
     }
 
     return headModelCanvas;
+  }
+
+  // 模型正面
+  frontModelCanvas = () => {
   }
 
   // 修改动作

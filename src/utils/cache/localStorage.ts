@@ -2,7 +2,7 @@
 
 import CacheKey from "@/constants/cacheKey"
 import { type ThemeName } from "@/hooks/useTheme"
-import { type ControlsHistory } from '@/types/editor'
+import { type DraftHistory, type ControlsHistory } from '@/types/editor'
 
 class Cache {
   public name: string
@@ -85,4 +85,15 @@ export const setControlsHistory = (controls_history: ControlsHistory) => {
 }
 export const getControlsHistory = () => {
   return cache.get(CacheKey.CONTROLS_HISTORY);
+}
+
+
+// 设置皮肤历史信息
+
+export const setDraftHistory = (draft_history: DraftHistory) => {
+  cache.set(CacheKey.DRAFT_HISTORY, draft_history);
+}
+
+export const getDraftHistory = () => {
+  return cache.get(CacheKey.DRAFT_HISTORY);
 }

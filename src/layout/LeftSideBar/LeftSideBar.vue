@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useTheme } from '@/hooks/useTheme';
 import { useEditorStore } from '@/store/editor';
 import { skinDraft } from '@/types/editor';
 
@@ -6,6 +7,9 @@ import { skinDraft } from '@/types/editor';
 const editorStore = useEditorStore();
 
 const model = ref<number>(editorStore.draftHistory.length >= 0 ? 0 : -1)
+
+const { activeThemeName } = useTheme()
+
 
 watch(
   editorStore.draftHistory, () => {
@@ -21,9 +25,9 @@ const loadSkinDraft = (item: skinDraft) => {
 </script>
 <template>
   <div class="LeftSideBar" flex flex-col v-show="editorStore.draftHistory.length > 0">
-    <v-slide-group show-arrows mandatory direction="vertical" v-model="model">
+    <v-slide-group show-arrows mandatory direction="vertical" v-model="model" :theme="activeThemeName">
       <template v-slot:prev>
-        <v-btn icon>
+        <v-btn ripple icon>
           <v-icon>fas fa-arrow-up</v-icon>
         </v-btn>
       </template>
@@ -33,7 +37,7 @@ const loadSkinDraft = (item: skinDraft) => {
         </v-card>
       </v-slide-group-item>
       <template v-slot:next>
-        <v-btn icon>
+        <v-btn ripple icon>
           <v-icon>fas fa-arrow-down</v-icon>
         </v-btn>
       </template>

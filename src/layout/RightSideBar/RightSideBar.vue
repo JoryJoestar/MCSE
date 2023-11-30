@@ -1,13 +1,16 @@
 <script lang="ts" setup>
 
+import { useTheme } from '@/hooks/useTheme';
 import { useEditorStore } from '@/store/editor';
 
 const editorStore = useEditorStore();
 
+const { activeThemeName } = useTheme()
+
 </script>
 <template>
     <v-layout>
-        <v-navigation-drawer floating permanent location="right" class="right-side-bar">
+        <v-navigation-drawer floating permanent location="right" class="right-side-bar" :theme="activeThemeName">
             <div class="modelShow">
                 <v-list-item font-size-3 px-2>模型显示</v-list-item>
                 <v-list-item>
@@ -47,7 +50,7 @@ const editorStore = useEditorStore();
                     </div>
                 </v-list-item>
                 <div class="toggle-select">
-                    <v-btn class="body-selector">
+                    <v-btn ripple class="body-selector">
                         <v-icon>mdi-Account-Supervisor</v-icon>
                         Body &amp; Overlay
                     </v-btn>

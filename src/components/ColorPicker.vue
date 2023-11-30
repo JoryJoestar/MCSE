@@ -56,7 +56,7 @@ onUnmounted(() => {
                 <div class="pickerBody">
                     <v-text-field variant="outlined" class="pickerBody-pickerHex" v-model="editorStore.color">
                         <template v-slot:prepend-inner>
-                            <v-btn variant="text" mr-2>
+                            <v-btn variant="text" ripple mr-2>
                                 <div id="color" :style="swatchStyle" v-bind="props"></div>
                             </v-btn>
                         </template>

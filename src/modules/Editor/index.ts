@@ -606,6 +606,11 @@ class SkinEditor {
     download(headURL);
   }
 
+  public downloadCanvasCut = () => {
+    let cavansCutURL = resizedCanvas(this.renderer.domElement, 1).toDataURL("image/png", 2.0);
+    download(cavansCutURL);
+  }
+
   getSkinURL = () => {
     return this.skin.skinCanvas().toDataURL();
   }

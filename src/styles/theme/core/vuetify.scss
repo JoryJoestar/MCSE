@@ -27,3 +27,13 @@
 .v-list-item {
     // padding: 0 !important;
 }
+
+.v-toolbar {
+    color: $font-color;
+    background-color: $theme-bg-color !important;
+}
+
+.v-sheet {
+    color: $font-color;
+    background-color: $theme-sub-bg-color !important;
+}

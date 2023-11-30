@@ -9,7 +9,7 @@ const toPages = (path: string) => {
 </script>
 <template>
   <div class="Home">
-    <v-btn @click="toPages('/editor')">Editor</v-btn>
+    <v-btn ripple @click="toPages('/editor')">Editor</v-btn>
   </div>
 </template>
 <style lang="" scoped>

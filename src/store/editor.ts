@@ -1,7 +1,8 @@
 import { SkinEditor } from '@/modules/Editor'
 import { defineStore } from 'pinia'
 import { circularSafeStringify, debounce } from '@/utils/js';
-import { getColorSwatches, getSkin } from '@/utils/cache/localStorage';
+import { getColorSwatches, getSkin, setDraftHistory } from '@/utils/cache/localStorage';
+import { type DraftHistory } from '@/types/editor';
 
 export const useEditorStore = defineStore('editor', () => {
 
@@ -120,7 +121,9 @@ export const useEditorStore = defineStore('editor', () => {
 
     skineditorValue.toolBox.drawLoaded(() => {
       if (skineditorValue.toolBox.curTool === 'brush' || skineditorValue.toolBox.curTool === 'bucket') {
-        shiftColorSwatches(color.value);
+        if (colorSwatches.value[0][0] !== color.value) {
+          shiftColorSwatches(color.value);
+        }
       }
     })
   }
@@ -158,6 +161,28 @@ export const useEditorStore = defineStore('editor', () => {
     color.value = val
   }
 
+
+  // 草稿长度
+  const draftHistoryLength = 9;
+  // draft 皮肤草稿
+  const draftHistory = ref<DraftHistory>([]);
+
+  const saveDraft = () => {
+    const skin = skineditor.value.getSkinURL()
+    const show_img = skineditor.value.getCanvasPicURL()
+    let param = {
+      id: draftHistory.value.length,
+      skin: skin,
+      show_img: show_img
+    }
+    if (draftHistory.value.length > draftHistoryLength) {
+      draftHistory.value.unshift(param)
+      draftHistory.value.pop()
+    } else {
+      draftHistory.value.unshift(param)
+    }
+  }
+
   return {
     skineditor,
     initSkineditor,
@@ -179,6 +204,8 @@ export const useEditorStore = defineStore('editor', () => {
     switchGrid,
     color,
     colorSwatches,
-    shiftColorSwatches
+    shiftColorSwatches,
+    draftHistory,
+    saveDraft
   }
 })

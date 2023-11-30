@@ -11,6 +11,7 @@ onMounted(() => {
 <template>
   <div class="layout">
     <TopBar />
+    <LeftSideBar />
     <Main />
     <RightSideBar />
     <BottomBar />

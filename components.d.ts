@@ -10,6 +10,7 @@ declare module 'vue' {
     BottomBar: typeof import('./src/layout/BottomBar/BottomBar.vue')['default']
     ColorPicker: typeof import('./src/components/ColorPicker.vue')['default']
     Layout: typeof import('./src/layout/index.vue')['default']
+    LeftSideBar: typeof import('./src/layout/LeftSideBar/LeftSideBar.vue')['default']
     Main: typeof import('./src/layout/Main/Main.vue')['default']
     RightSideBar: typeof import('./src/layout/RightSideBar/RightSideBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

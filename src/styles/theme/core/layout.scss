@@ -27,4 +27,14 @@
         height: 95vh !important;
         z-index: 998 !important;
     }
+    .LeftSideBar {
+        top: 10vh !important;
+        left: 3vw !important;
+        height: 80vh !important;
+        z-index: 998 !important;
+        justify-content: start;
+        align-items: center;
+        // background-color: $theme-bg-color !important;
+        position: fixed;
+    }
 }

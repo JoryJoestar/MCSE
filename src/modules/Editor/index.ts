@@ -591,6 +591,11 @@ class SkinEditor {
     return (document.querySelector("#upgrade_file") as any).click();
   }
 
+  public backToDraft = (skinURL: string) => {
+    this.scene.remove(this.skin.object);
+    this.initSkin(skinURL);
+  }
+
   public downloadSkin = () => {
     let imageURL = this.skin.skinCanvas().toDataURL();
     download(imageURL);
@@ -601,18 +606,16 @@ class SkinEditor {
     download(headURL);
   }
 
-  public saveDraft = () => {
-    //  设置localStorage
-    let imageURL = this.skin.skinCanvas().toDataURL();
-    setSkin(imageURL);
+  getSkinURL = () => {
+    return this.skin.skinCanvas().toDataURL();
+  }
 
-    let skinURL = resizedCanvas(this.renderer.domElement, 1).toDataURL("image/png", 2.0);
-    // download(skinURL);
-    let headURL = resizedCanvas(this.skin.headCanvas(), 1).toDataURL("image/png", 2.0);
-    // download(headURL)
-    console.log(`本地存储皮肤原图:${imageURL}`);
-    console.log(`全身截图:`, skinURL);
-    console.log(`头部原图:${headURL}`);
+  getCanvasPicURL = () => {
+    return resizedCanvas(this.renderer.domElement, 1).toDataURL("image/png", 2.0);
+  }
+
+  getHeadURL = () => {
+    return resizedCanvas(this.skin.headCanvas(), 1).toDataURL("image/png", 2.0);
   }
 
   // 重置皮肤为ALex和Steve

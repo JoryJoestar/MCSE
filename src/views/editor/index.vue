@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
 import { useTheme } from "@/hooks/useTheme"
-import { getControlsHistory, getSkin, setColorSwatches, setControlsHistory, setSkin } from '@/utils/cache/localStorage';
+import { getControlsHistory, getDraftHistory, getSkin, setColorSwatches, setControlsHistory, setDraftHistory, setSkin } from '@/utils/cache/localStorage';
 import { useEditorStore } from '@/store/editor';
 
 const { activeThemeName } = useTheme();
@@ -26,22 +26,29 @@ const setControlsHistoryTLS = () => {
   // })
 }
 
+const setDraftHistoryTLS = () => {
+  setDraftHistory(editorStore.draftHistory)
+}
+
 onMounted(() => {
   setTimeout(() => {
     getSkin() ? editorStore.initSkineditor(getSkin()) : editorStore.initSkineditor();
     getControlsHistory() ? editorStore.skineditor.toolBox.history.setCacheHistory(getControlsHistory()) : null
+    getDraftHistory() ? editorStore.draftHistory = getDraftHistory() : []
   })
 
   // 监听页面离开时触发 保存皮肤到本地
   window.addEventListener('unload', setSkinToLocalStorage)
   window.addEventListener('unload', setColorSwatchesTLS)
   window.addEventListener('unload', setControlsHistoryTLS)
+  window.addEventListener('unload', setDraftHistoryTLS)
 })
 
 onUpdated(() => {
   window.addEventListener('unload', setSkinToLocalStorage)
   window.addEventListener('unload', setColorSwatchesTLS)
   window.addEventListener('unload', setControlsHistoryTLS)
+  window.addEventListener('unload', setDraftHistoryTLS)
   window.addEventListener('resize', editorStore.skineditor.onWindowResize);
 })
 
@@ -49,6 +56,7 @@ onBeforeRouteLeave(() => {
   window.removeEventListener('unload', setSkinToLocalStorage);
   window.removeEventListener('unload', setColorSwatchesTLS)
   window.removeEventListener('unload', setControlsHistoryTLS)
+  window.removeEventListener('unload', setDraftHistoryTLS)
   window.removeEventListener('resize', editorStore.skineditor.onWindowResize);
 })
 
@@ -56,6 +64,7 @@ onUnmounted(() => {
   window.removeEventListener('unload', setSkinToLocalStorage);
   window.removeEventListener('unload', setColorSwatchesTLS)
   window.removeEventListener('unload', setControlsHistoryTLS)
+  window.removeEventListener('unload', setDraftHistoryTLS)
 })
 
 </script>

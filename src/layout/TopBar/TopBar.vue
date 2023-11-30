@@ -4,6 +4,8 @@ import { useTheme } from "@/hooks/useTheme"
 
 const editorStore = useEditorStore();
 
+const downloadOptionsOverlay = ref<boolean>(false)
+
 const { isDark, toggleDark, activeThemeName } = useTheme()
 
 onMounted(() => { })
@@ -34,26 +36,20 @@ onMounted(() => { })
                                     加载皮肤
                                 </template>
                             </v-list-item>
-                            <v-list-item value="saveDraft" class="saveDraft" @click="editorStore.skineditor.saveDraft()">
-                                <template v-slot:prepend>
-                                    保存草稿
-                                </template>
-                            </v-list-item>
                             <v-list-item value="reset" class="reset" @click="editorStore.skineditor.resetSkin()">
                                 <template v-slot:prepend>
                                     重置皮肤
                                 </template>
                             </v-list-item>
-
-                            <v-list-item value="download" class="download" @click="editorStore.skineditor.downloadSkin()">
+                            <v-list-item value="saveDraft" class="saveDraft" @click="editorStore.saveDraft()">
                                 <template v-slot:prepend>
-                                    下载皮肤
+                                    保存草稿
                                 </template>
                             </v-list-item>
-                            <v-list-item value="downloadSkinHead" class="downloadSkinHead"
-                                @click="editorStore.skineditor.downloadSkinHead()">
+                            <v-list-item value="download" class="download"
+                                @click="downloadOptionsOverlay = !downloadOptionsOverlay">
                                 <template v-slot:prepend>
-                                    下载头像
+                                    下载皮肤
                                 </template>
                             </v-list-item>
                         </v-list>
@@ -165,6 +161,10 @@ onMounted(() => { })
             <v-icon :icon="`${isDark ? 'fas fa-moon' : 'fas fa-sun'}`"></v-icon>
         </v-btn>
     </v-toolbar>
+    <v-overlay v-model="downloadOptionsOverlay">
+        <!-- editorStore.skineditor.downloadSkin() -->
+        <!-- editorStore.skineditor.downloadSkinHead() -->
+    </v-overlay>
 </template>
 <style lang="scss" scoped>
 </style>

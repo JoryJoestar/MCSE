@@ -4,8 +4,9 @@ export type ControlsHistory = {
   redo_History: Array<any>
 }
 
-type skinDraft = {
-  skin: string,
+export type skinDraft = {
+  id: number
+  skin: string
   show_img: string
 }
 

@@ -77,6 +77,7 @@ class ToolBox {
             let texture = parent.object.textureCoordinate(plane.object.userData.planeId);
             let data = this.curSelectTool.draw(this.ctx, texture.x, texture.y, parent, plane.object, this.SkinEditor.color);
             // console.log(Controling);
+
             if (typeof (data.update) !== 'undefined') {
                 if (data.update) {
                     this._drawLoaded();
@@ -253,7 +254,7 @@ class Brush {
     draw = (ctx: any, x: any, y: any, parent: any, plane: any, color: any) => {
         let imageData = ctx.getImageData(x, y, 1, 1).data;
         let imageColor = imageData[3] < 255 && parent.object.overlay ? null : rgbToHex(imageData[0], imageData[1], imageData[2]);
-        if (imageColor == color) {
+        if (imageColor && imageColor.toLowerCase() == color.toLowerCase()) {
             return { update: false };
         }
         // 对图片进行

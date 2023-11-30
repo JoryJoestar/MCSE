@@ -2,6 +2,7 @@
 
 import CacheKey from "@/constants/cacheKey"
 import { type ThemeName } from "@/hooks/useTheme"
+import { type ControlsHistory } from '@/types/editor'
 
 class Cache {
   public name: string
@@ -76,4 +77,12 @@ export const setColorSwatches = (color_swatches: string[][]) => {
 
 export const getColorSwatches = () => {
   return cache.get(CacheKey.COLOR_SWATCHES);
+}
+
+// 设置编辑操作信息
+export const setControlsHishtory = (controls_history: ControlsHistory) => {
+  cache.set(CacheKey.CONTROLS_HISTORY, controls_history);
+}
+export const getControlsHishtory = () => {
+  return cache.get(CacheKey.CONTROLS_HISTORY);
 }

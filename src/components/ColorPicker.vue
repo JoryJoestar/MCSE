@@ -20,25 +20,51 @@ const swatchStyle = computed(() => {
     }
 })
 
+// let colorEl: HTMLDivElement;
+// let colorPickerEl: HTMLDivElement;
+
+// const getColorPickerEl = () => {
+//     if (!menu.value) {
+//         setTimeout(() => {
+//             colorPickerEl = document.querySelector('#colorPicker') as HTMLDivElement;
+//             const colorPickerCanvas = colorPickerEl.querySelector('.v-color-picker-canvas');
+//             if (colorPickerCanvas) {
+//                 colorPickerCanvas.addEventListener('mouseup', () => {
+//                     editorStore.skineditor.changeColor(editorStore.color);
+//                 })
+//             }
+//         }, 300)
+//     }
+// }
+
+onMounted(() => {
+    // colorEl = document.querySelector('#color') as HTMLDivElement;
+    // if (colorEl) {
+    //     colorEl.addEventListener('mousedown', getColorPickerEl)
+    // }
+})
+
+onUnmounted(() => {
+    // colorEl.removeEventListener('mousedown', getColorPickerEl)
+})
 </script>
 
 <template>
     <div class="colorPicker">
-        <v-menu v-model="menu" top nudge-bottom="105" nudge-left="16" :close-on-content-click="false"
-            :theme="activeThemeName">
+        <v-menu v-model="menu" :close-on-content-click="false" :theme="activeThemeName">
             <template v-slot:activator="{ props }">
                 <div class="pickerBody">
                     <v-text-field variant="outlined" class="pickerBody-pickerHex" v-model="editorStore.color">
                         <template v-slot:prepend-inner>
                             <v-btn variant="text" mr-2>
-                                <div :style="swatchStyle" v-bind="props"></div>
+                                <div id="color" :style="swatchStyle" v-bind="props"></div>
                             </v-btn>
                         </template>
                     </v-text-field>
                 </div>
             </template>
-            <v-color-picker show-swatches mode="hex" :swatches="editorStore.colorSwatches" v-model="editorStore.color"
-                flat />
+            <v-color-picker mt-2 id="colorPicker" show-swatches :modes="['hex']" :swatches="editorStore.colorSwatches"
+                v-model="editorStore.color" flat />
         </v-menu>
     </div>
 </template>
@@ -49,8 +75,6 @@ const swatchStyle = computed(() => {
     justify-content: start;
     align-items: center;
     padding: .5rem;
-
-    &-pickerHex {}
 
     .v-btn {
         background: transparent !important;

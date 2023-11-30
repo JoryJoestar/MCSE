@@ -57,6 +57,13 @@ class ToolBox {
 
     }
 
+
+    _drawLoaded = () => { };
+
+    drawLoaded = (call: () => void) => {
+        this._drawLoaded = call;
+    };
+
     // 颜色
     drawing = (e: any) => {
         // 判断是触摸点击 还是 鼠标点击
@@ -72,6 +79,7 @@ class ToolBox {
             // console.log(Controling);
             if (typeof (data.update) !== 'undefined') {
                 if (data.update) {
+                    this._drawLoaded();
                     this.history.push(this.ctx, texture.x, texture.y, parent, plane.object, this.SkinEditor.color, this.curSelectTool, data);
                     this.SkinEditor.render();
                 }

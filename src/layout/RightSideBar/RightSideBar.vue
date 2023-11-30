@@ -91,7 +91,7 @@ const editorStore = useEditorStore();
                 <v-list-item px-2 font-size-3>颜色选择</v-list-item>
                 <v-list-item>
                     <div class="color-controls" my-4>
-                        <ColorPicker class="color-controls-item"></ColorPicker>
+                        <ColorPicker></ColorPicker>
                     </div>
                 </v-list-item>
             </div>

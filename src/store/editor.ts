@@ -94,6 +94,8 @@ export const useEditorStore = defineStore('editor', () => {
 
     skineditorValue.toolBox.changeTool(tool.value);
 
+    skineditorValue.changeColor(color.value);
+
     skineditorValue.initSkinLoaded((curModel: string) => {
       model.value = curModel;
       skineditor.value = skineditorValue
@@ -109,11 +111,18 @@ export const useEditorStore = defineStore('editor', () => {
     skineditorValue.toolBox.history.pushLoaded((undoHistoryLength_val: number, redoHistoryLength_val: number) => {
       undoHistoryLength.value = undoHistoryLength_val;
       redoHistoryLength.value = redoHistoryLength_val;
+      console.log(skineditor.value.toolBox.history)
     })
 
     // dropper 吸取后回调
     skineditorValue.toolBox.dropper.dropperLoaded((color: any) => {
       dropperColorChange(color);
+    })
+
+    skineditorValue.toolBox.drawLoaded(() => {
+      if (skineditorValue.toolBox.curTool === 'brush' || skineditorValue.toolBox.curTool === 'bucket') {
+        shiftColorSwatches(color.value);
+      }
     })
   }
 
@@ -125,11 +134,9 @@ export const useEditorStore = defineStore('editor', () => {
     ['#0000FF', '#0000AA', '#000055'],
   ]);
   const color = ref<string>(colorSwatches.value[0][0]);
-  watch(
-    color, (newValue: string) => {
-      shiftColorSwatches(newValue);
-    },
-  )
+  watch(color, (newValue) => {
+    skineditor.value.changeColor(newValue);
+  })
   const shiftColorSwatches = debounce((color: string) => {
     const colorSwatchesX = colorSwatches.value.length;
     const colorSwatchesY = colorSwatches.value[0].length;
@@ -145,12 +152,17 @@ export const useEditorStore = defineStore('editor', () => {
         }
       }
     }
-  }, 500);
+  }, 100);
 
   // dropper 吸取后返回到调色板
   const dropperColorChange = (val: any) => {
     color.value = val
   }
+
+
+  const controls_history = ''
+
+
 
   return {
     skineditor,

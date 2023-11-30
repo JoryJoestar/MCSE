@@ -43,7 +43,8 @@ onBeforeRouteLeave(() => {
 })
 
 onUnmounted(() => {
-
+  window.removeEventListener('unload', setSkinToLocalStorage);
+  window.removeEventListener('unload', setColorSwatchesTLS)
 })
 
 </script>

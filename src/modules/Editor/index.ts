@@ -134,6 +134,25 @@ class SkinEditor {
 
   private initCanvasListener = () => {
 
+    // 鼠标右键 抓取
+    this.canvas.addEventListener('mousedown', (event: MouseEvent) => {
+      let drawing = this.toolBox.startDrawing(event);
+      if (event.button === 0) {
+        if (!drawing) {
+          this.canvas.style.cursor = 'grab';
+        }
+      }
+      else if (event.button === 2) {
+        this.canvas.style.cursor = 'grab';
+      }
+    })
+
+    this.canvas.addEventListener('mouseup', (event: MouseEvent) => {
+
+      this.canvas.style.cursor = 'crosshair';
+
+    })
+
     // 进入canvas 点击 识别位置 配合绘画工具 若是皮肤正确位置则进行 绘制操作
     this.canvas.addEventListener('mousedown', (event: MouseEvent) => {
 

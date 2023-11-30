@@ -28,7 +28,7 @@ onMounted(() => { })
                         </v-icon>
                     </template>
                     <v-menu activator="parent" open-on-hover location="end">
-                        <v-list mt-2 class="menu-list" min-w-64 ml-2>
+                        <v-list class="menu-list" min-w-64 ml-2>
                             <v-list-item value="upload" class="upload" @click="editorStore.skineditor.uploadSkin()">
                                 <template v-slot:prepend>
                                     加载皮肤

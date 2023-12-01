@@ -27,8 +27,15 @@ const { activeThemeName } = useTheme()
     box-shadow: none;
   }
 
+  .v-chip {
+    padding: 0;
+    margin: 0 .5rem;
+  }
+
   .v-btn {
     background-color: transparent !important;
+    padding: 0;
+    margin: 0 0.5rem;
   }
 }
 </style>

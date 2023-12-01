@@ -206,7 +206,6 @@ onMounted(() => { })
 </template>
 <style lang="scss" scoped>
 .downloadDialog {
-
     width: 60vw;
 }
 

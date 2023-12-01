@@ -10,7 +10,8 @@ const { activeThemeName } = useTheme()
 </script>
 <template>
     <v-layout>
-        <v-navigation-drawer floating permanent location="right" class="right-side-bar" :theme="activeThemeName"  select-none>
+        <v-navigation-drawer floating permanent location="right" class="right-side-bar" :theme="activeThemeName"
+            select-none>
             <div class="modelShow">
                 <v-list-item font-size-3 px-2>模型显示</v-list-item>
                 <v-list-item>

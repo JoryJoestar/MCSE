@@ -131,26 +131,29 @@ class SkinEditor {
 
   }
 
+
+  grabbing: boolean = false
+
   private initCanvasListener = () => {
 
     // 鼠标右键 抓取
     this.canvas.addEventListener('mousedown', (event: MouseEvent) => {
       let drawing = this.toolBox.startDrawing(event);
-      if (event.button === 0) {
+      if (event.button === 0 || event.button === 2) {
         if (!drawing) {
-          this.canvas.style.cursor = 'grabbing';
+          this.canvas.style.cursor = 'grab';
+          this.grabbing = true;
+          this.canvas.onmousemove = () => {
+            this.canvas.style.cursor = 'grabbing';
+          }
         }
-      }
-      else if (event.button === 2) {
-        this.canvas.style.cursor = 'grabbing';
       }
     })
 
-    this.canvas.addEventListener('mouseup', (event: MouseEvent) => {
-      let drawing = this.toolBox.startDrawing(event);
-      if (!drawing) {
-        this.canvas.style.cursor = 'grab';
-      }
+    this.canvas.addEventListener('mouseup', () => {
+      this.canvas.style.cursor = 'default';
+      this.grabbing = false;
+      this.canvas.onmousemove = null;
     })
 
     // 进入canvas 点击 识别位置 配合绘画工具 若是皮肤正确位置则进行 绘制操作
@@ -483,23 +486,24 @@ class SkinEditor {
       type = 'mouse';
     }
 
+    console.log(this.grabbing)
+    if (this.grabbing) return
+
+    if (this.cast_ray(e.pageX, e.pageY)) {
+      this.canvas.style.cursor = 'crosshair';
+    } else {
+      this.canvas.style.cursor = 'default';
+    }
+
     if (type === 'mouse' && this.grid_enabled && !1 !== e ? e && (t = !!this.cast_ray(e.pageX, e.pageY)) : t = !1, t != this.isInSkinGrid) {
       for (const r in this.isInSkinGrid = t, this.skin.bodyparts) {
         if (!(this.isInSkinGrid && this.skin.bodyparts[r].overlay.visible)) {
           this.skin.bodyparts[r].base.grid.box.visible = this.isInSkinGrid && this.skin.bodyparts[r].base.visible;
         }
         this.skin.bodyparts[r].overlay.grid.box.visible = this.isInSkinGrid && this.skin.bodyparts[r].overlay.visible;
-        if (this.skin.bodyparts[r].base.grid.box.visible) {
-          this.canvas.style.cursor = 'crosshair';
-        } else {
-          this.canvas.style.cursor = 'grab';
-        }
-
       }
       this.render();
     }
-
-
 
     if (type === 'touch') {
       console.log('touch');

@@ -1,7 +1,7 @@
 import { SkinEditor } from '@/modules/Editor'
 import { defineStore } from 'pinia'
-import { circularSafeStringify, debounce } from '@/utils/js';
-import { getColorSwatches, getSkin, setDraftHistory } from '@/utils/cache/localStorage';
+import { debounce } from '@/utils/js';
+import { getColorSwatches } from '@/utils/cache/localStorage';
 import { type DraftHistory } from '@/types/editor';
 
 export const useEditorStore = defineStore('editor', () => {
@@ -170,6 +170,13 @@ export const useEditorStore = defineStore('editor', () => {
   const saveDraft = () => {
     const skin = skineditor.value.getSkinURL()
     const show_img = skineditor.value.getCanvasPicURL()
+
+    if (skin === draftHistory.value[0].skin) {
+      snackBar.value = true
+      snackBarMsg.value = '已保存'
+      return
+    }
+
     let param = {
       id: draftHistory.value.length,
       skin: skin,
@@ -182,6 +189,10 @@ export const useEditorStore = defineStore('editor', () => {
       draftHistory.value.unshift(param)
     }
   }
+
+  const snackBar = ref<boolean>(false)
+
+  const snackBarMsg = ref<string>('')
 
   return {
     skineditor,
@@ -206,6 +217,8 @@ export const useEditorStore = defineStore('editor', () => {
     colorSwatches,
     shiftColorSwatches,
     draftHistory,
-    saveDraft
+    saveDraft,
+    snackBar,
+    snackBarMsg
   }
 })

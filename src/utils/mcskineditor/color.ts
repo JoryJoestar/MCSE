@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param str 
+ * @returns 
+ */
 export const HexToRgb = (str: any) => {
   let r = /^\#?[0-9A-F]{6}$/;
   //test方法检查在字符串中是否存在一个模式，如果存在则返回true，否则返回false
@@ -9,14 +14,28 @@ export const HexToRgb = (str: any) => {
   for (let i = 0; i < 3; i++) hxs[i] = parseInt(hxs[i], 16);
   return hxs;
 }
-export const RgbToHex = (a: any, b: any, c: any) => {
-  let r = /^\d{1,3}$/;
-  if (!r.test(a) || !r.test(b) || !r.test(c)) return alert('输入错误的hex颜色值');
-  let hexs = [a.toString(16), b.toString(16), c.toString(16)];
+
+/**
+ * 
+ * @param r 
+ * @param g 
+ * @param b 
+ * @returns 
+ */
+export const RgbToHex = (r: any, g: any, b: any) => {
+  let reg = /^\d{1,3}$/;
+  if (!reg.test(r) || !reg.test(g) || !reg.test(b)) return alert('输入错误的hex颜色值');
+  let hexs = [r.toString(16), g.toString(16), b.toString(16)];
   for (let i = 0; i < 3; i++) if (hexs[i].length == 1) hexs[i] = "0" + hexs[i];
   return "#" + hexs.join("");
 }
 
+/**
+ * 
+ * @param color 
+ * @param level 
+ * @returns 
+ */
 export const getDarkColor = (color: string, level: number) => {
   let r = /^\#?[0-9A-F]{6}$/;
   if (!r.test(color)) return alert('输入错误的hex颜色值');
@@ -26,6 +45,12 @@ export const getDarkColor = (color: string, level: number) => {
   return RgbToHex(rgbc[0], rgbc[1], rgbc[2]);
 }
 
+/**
+ * 
+ * @param color 
+ * @param level 
+ * @returns 
+ */
 export const getLightColor = (color: string, level: number) => {
   let r = /^\#?[0-9A-F]{6}$/;
   if (!r.test(color)) return alert('输入错误的hex颜色值');

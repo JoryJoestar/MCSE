@@ -22,6 +22,7 @@ const setControlsHistoryTLS = () => {
 }
 
 const setDraftHistoryTLS = () => {
+  editorStore.saveDraft()
   setDraftHistory(editorStore.draftHistory)
 }
 
@@ -74,6 +75,10 @@ onUnmounted(() => {
         <input type="file" id="upgrade_file" name="file">
       </form>
     </div>
+
+    <v-snackbar v-model="editorStore.snackBar" timeout="3000" location="top"> 
+      {{ editorStore.snackBarMsg }}
+    </v-snackbar>
 
   </v-card>
 </template>

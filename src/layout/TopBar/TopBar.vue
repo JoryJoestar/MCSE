@@ -175,9 +175,9 @@ onMounted(() => { })
                 <v-btn icon dark ripple @click="downloadDialog = false">
                     <v-icon>fas fa-xmark</v-icon>
                 </v-btn>
-
             </v-toolbar>
-            <v-sheet>
+            <v-divider class="border-opacity-100"></v-divider>
+            <v-sheet class="downloadSheet">
                 <div class="skin downloadItem" w-64>
                     <v-sheet p-4 mb-8>
                         <v-img :src="editorStore.skineditor.getSkinURL()" aspect-ratio="9/16" w-32 h-32 cover></v-img>
@@ -213,19 +213,34 @@ onMounted(() => { })
 <style lang="scss" scoped>
 .downloadDialog {
     width: 60vw;
-}
 
-.v-sheet {
-    display: flex;
-    flex-direction: row !important;
-    justify-content: space-evenly;
+    .v-toolbar {
+        border-radius: .5rem .5rem 0 0 !important;
+    }
 
-    .downloadItem {
-        padding: 2rem 0;
+    .downloadSheet {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        flex-direction: row !important;
+        justify-content: space-evenly;
+        border-radius: 0 0 .5rem .5rem !important;
+
+        .downloadItem {
+            padding: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .v-sheet {
+                border-radius: .5rem !important;
+            }
+
+            .v-btn {
+                border-radius: .5rem !important;
+                
+            }
+
+        }
     }
 }
 </style>

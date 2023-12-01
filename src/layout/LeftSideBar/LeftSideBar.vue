@@ -11,9 +11,7 @@ const model = ref<number>(editorStore.draftHistory.length >= 0 ? 0 : -1)
 
 const { activeThemeName } = useTheme()
 
-
-
-const style = computed(() => {
+const selectedStyle = computed(() => {
   return {
     color: editorStore.color,
     backgroundColor: getLightColor(editorStore.color, 0.3) as string,
@@ -43,7 +41,7 @@ const loadSkinDraft = (item: skinDraft) => {
         </v-btn>
       </template>
       <v-slide-group-item v-for="item in editorStore.draftHistory" :key="item.id" v-slot="{ isSelected, toggle }">
-        <v-card :style="isSelected ? style : {}" my-2 @click="toggle">
+        <v-card :style="isSelected ? selectedStyle : {}" my-2 @click="toggle">
           <v-img aspect-ratio="16/9" w-24 h-32 cover :src="item.show_img" @click="loadSkinDraft(item)"></v-img>
         </v-card>
       </v-slide-group-item>

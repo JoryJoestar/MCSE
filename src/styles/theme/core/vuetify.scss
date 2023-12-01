@@ -18,14 +18,16 @@
 
 .v-btn {
     background-color: $theme-bg-color !important;
+    color: $font-color;
     min-width: 0px !important;
 }
 .v-btn:hover {
     background: $input-focus-bg-color !important;
 }
 
-.v-list-item {
-    // padding: 0 !important;
+.v-divider {
+    color: $font-color;
+    background-color: $theme-bg-color !important;
 }
 
 .v-toolbar {
@@ -35,5 +37,10 @@
 
 .v-sheet {
     color: $font-color;
-    background-color: $theme-sub-bg-color !important;
+    background-color: $theme-bg-color !important;
+}
+
+.v-card {
+    color: $font-color;
+    background-color: $theme-bg-color;
 }

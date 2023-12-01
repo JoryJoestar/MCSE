@@ -183,8 +183,7 @@ export const useEditorStore = defineStore('editor', () => {
     const skin = skineditor.value.getSkinURL()
     const show_img = skineditor.value.getCanvasPicURL()
 
-    if (skin === draftHistory.value[0].skin) return false;
-
+    if (draftHistory.value.length > 0 && skin === draftHistory.value[0].skin) return false;
 
     let param = {
       id: draftHistory.value.length,

@@ -2,6 +2,7 @@
 import { useTheme } from '@/hooks/useTheme';
 import { useEditorStore } from '@/store/editor';
 import { skinDraft } from '@/types/editor';
+import { getLightColor } from '@/utils/mcskineditor/color';
 
 
 const editorStore = useEditorStore();
@@ -11,6 +12,15 @@ const model = ref<number>(editorStore.draftHistory.length >= 0 ? 0 : -1)
 const { activeThemeName } = useTheme()
 
 
+
+const style = computed(() => {
+  return {
+    color: editorStore.color,
+    backgroundColor: getLightColor(editorStore.color, 0.3) as string,
+  }
+})
+
+
 watch(
   editorStore.draftHistory, () => {
     model.value = 0
@@ -18,7 +28,8 @@ watch(
 )
 
 const loadSkinDraft = (item: skinDraft) => {
-  if (item.id === model.value) return
+  const sortId = editorStore.draftHistory.length - 1 - item.id
+  if (sortId === model.value) return
   editorStore.skineditor.backToDraft(item.skin)
 }
 
@@ -32,7 +43,7 @@ const loadSkinDraft = (item: skinDraft) => {
         </v-btn>
       </template>
       <v-slide-group-item v-for="item in editorStore.draftHistory" :key="item.id" v-slot="{ isSelected, toggle }">
-        <v-card :color="isSelected ? editorStore.color : ''" my-2 @click="toggle">
+        <v-card :style="isSelected ? style : {}" my-2 @click="toggle">
           <v-img aspect-ratio="16/9" w-24 h-32 cover :src="item.show_img" @click="loadSkinDraft(item)"></v-img>
         </v-card>
       </v-slide-group-item>

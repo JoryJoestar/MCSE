@@ -176,7 +176,6 @@ onMounted(() => { })
                     <v-icon>fas fa-xmark</v-icon>
                 </v-btn>
             </v-toolbar>
-            <v-divider class="border-opacity-100"></v-divider>
             <v-sheet class="downloadSheet">
                 <div class="skin downloadItem" w-64>
                     <v-sheet p-4 mb-8>
@@ -237,7 +236,7 @@ onMounted(() => { })
 
             .v-btn {
                 border-radius: .5rem !important;
-                
+
             }
 
         }

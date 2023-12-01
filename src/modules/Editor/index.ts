@@ -631,7 +631,7 @@ class SkinEditor {
 
     // console.log(this.skin.curModel)
     let imageUrl;
-    console.log(this.scene)
+    // console.log(this.scene)
     this.scene.remove(this.skin.object);
 
     if (this.skin.curModel === 'Steve') {

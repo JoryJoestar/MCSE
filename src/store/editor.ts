@@ -6,6 +6,18 @@ import { type DraftHistory } from '@/types/editor';
 
 export const useEditorStore = defineStore('editor', () => {
 
+  const platform = ref<string>()
+
+  if (/Mobi/.test(navigator.userAgent)) {
+    // 在移动端
+    platform.value = 'mobile'
+
+  } else {
+    // 在网页端
+    platform.value = 'web'
+  }
+
+
   let skineditor = ref<SkinEditor>(new SkinEditor());
 
   // 绘画工具
@@ -214,6 +226,7 @@ export const useEditorStore = defineStore('editor', () => {
   }
 
   return {
+    platform,
     skineditor,
     initSkineditor,
     tool,

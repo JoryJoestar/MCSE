@@ -27,9 +27,15 @@ const setDraftHistoryTLS = () => {
 }
 
 onMounted(() => {
+
+  
+
   editorStore.startSaveDraftTimer()
 
+
+
   setTimeout(() => {
+    
     getControlsHistory() ? editorStore.skineditor.toolBox.history.setCacheHistory(getControlsHistory()) : null
     getDraftHistory() ? editorStore.draftHistory = getDraftHistory() : []
     editorStore.draftHistory.length > 0 ? editorStore.initSkineditor(editorStore.draftHistory[0].skin) : editorStore.initSkineditor()

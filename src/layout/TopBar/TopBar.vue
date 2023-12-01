@@ -8,6 +8,12 @@ const { isDark, toggleDark, activeThemeName } = useTheme()
 
 const downloadDialog = ref<boolean>(false)
 
+const saveDraft = () => {
+    editorStore.snackBar = true
+    editorStore.snackBarMsg = '已保存'
+    editorStore.saveDraft()
+}
+
 onMounted(() => { })
 
 </script>
@@ -41,9 +47,9 @@ onMounted(() => { })
                                     重置
                                 </template>
                             </v-list-item>
-                            <v-list-item value="saveDraft" class="saveDraft" @click="editorStore.saveDraft()">
+                            <v-list-item value="saveDraft" class="saveDraft" @click="saveDraft()">
                                 <template v-slot:prepend>
-                                    保存
+                                    保存（自动保存：三分钟）
                                 </template>
                             </v-list-item>
                             <v-list-item value="download" class="download" @click="downloadDialog = !downloadDialog">

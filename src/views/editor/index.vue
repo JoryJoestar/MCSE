@@ -27,6 +27,8 @@ const setDraftHistoryTLS = () => {
 }
 
 onMounted(() => {
+  editorStore.startSaveDraftTimer()
+
   setTimeout(() => {
     getControlsHistory() ? editorStore.skineditor.toolBox.history.setCacheHistory(getControlsHistory()) : null
     getDraftHistory() ? editorStore.draftHistory = getDraftHistory() : []
@@ -76,8 +78,8 @@ onUnmounted(() => {
       </form>
     </div>
 
-    <v-snackbar v-model="editorStore.snackBar" timeout="3000" location="top"> 
-      {{ editorStore.snackBarMsg }}
+    <v-snackbar v-model="editorStore.snackBar" timeout="2000" min-width="0" location="top">
+      <span>{{ editorStore.snackBarMsg }}</span>
     </v-snackbar>
 
   </v-card>

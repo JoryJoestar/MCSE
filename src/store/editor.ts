@@ -54,6 +54,7 @@ export const useEditorStore = defineStore('editor', () => {
     }
   )
 
+
   const modelItems = ['Steve', 'Alex'];
   const modelChangeTool = ref<any>();
   const model = ref('Steve')
@@ -161,7 +162,6 @@ export const useEditorStore = defineStore('editor', () => {
     color.value = val
   }
 
-
   // 草稿长度
   const draftHistoryLength = 9;
   // draft 皮肤草稿
@@ -171,11 +171,8 @@ export const useEditorStore = defineStore('editor', () => {
     const skin = skineditor.value.getSkinURL()
     const show_img = skineditor.value.getCanvasPicURL()
 
-    if (skin === draftHistory.value[0].skin) {
-      snackBar.value = true
-      snackBarMsg.value = '已保存'
-      return
-    }
+    if (skin === draftHistory.value[0].skin) return false;
+
 
     let param = {
       id: draftHistory.value.length,
@@ -188,11 +185,33 @@ export const useEditorStore = defineStore('editor', () => {
     } else {
       draftHistory.value.unshift(param)
     }
+    return true;
   }
 
   const snackBar = ref<boolean>(false)
-
   const snackBarMsg = ref<string>('')
+
+  const autoSaveIntervalTime = 3 * 60;
+  const saveDraftIntervalTime = ref<number>(0)
+  let saveDraftTimer: any;
+  const startSaveDraftTimer = () => {
+    saveDraftTimer = setInterval((() => {
+      saveDraftIntervalTime.value++
+      saveDraftIntervalTime.value >= autoSaveIntervalTime ? autoSaveDraft() : null
+    }), 1000);
+  }
+  const stopSaveDraftTimer = () => {
+    clearInterval(saveDraftTimer);
+  }
+  const autoSaveDraft = async () => {
+    saveDraft() ? (
+      snackBar.value = true,
+      snackBarMsg.value = '自动保存',
+      await stopSaveDraftTimer(),
+      saveDraftIntervalTime.value = 0,
+      startSaveDraftTimer()
+    ) : null
+  }
 
   return {
     skineditor,
@@ -219,6 +238,10 @@ export const useEditorStore = defineStore('editor', () => {
     draftHistory,
     saveDraft,
     snackBar,
-    snackBarMsg
+    snackBarMsg,
+    saveDraftIntervalTime,
+    startSaveDraftTimer,
+    stopSaveDraftTimer,
+    autoSaveDraft,
   }
 })

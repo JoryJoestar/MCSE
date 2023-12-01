@@ -486,7 +486,6 @@ class SkinEditor {
       type = 'mouse';
     }
 
-    console.log(this.grabbing)
     if (this.grabbing) return
 
     if (this.cast_ray(e.pageX, e.pageY)) {

@@ -7,7 +7,7 @@ import { hasKey, offset, siblings, toggle, toggleClass } from '@/utils/js/index'
 import WebGL from 'three/examples/jsm/capabilities/WebGL';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Skin } from './Skin';
-import { Color, PerspectiveCamera, Raycaster, Scene, Vector3, WebGLRenderer, sRGBEncoding } from 'three';
+import { PerspectiveCamera, Raycaster, Scene, Vector3, WebGLRenderer, sRGBEncoding } from 'three';
 import { ModelChangeTool } from './ModelChangeTool';
 import { ToolBox } from './ToolBox';
 import { download, resizedCanvas } from '@/utils/mcskineditor/canvas';
@@ -147,9 +147,10 @@ class SkinEditor {
     })
 
     this.canvas.addEventListener('mouseup', (event: MouseEvent) => {
-
-      this.canvas.style.cursor = 'grab';
-
+      let drawing = this.toolBox.startDrawing(event);
+      if (!drawing) {
+        this.canvas.style.cursor = 'grab';
+      }
     })
 
     // 进入canvas 点击 识别位置 配合绘画工具 若是皮肤正确位置则进行 绘制操作

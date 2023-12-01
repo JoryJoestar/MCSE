@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
 import { useTheme } from "@/hooks/useTheme"
-import { getControlsHistory, getDraftHistory, getSkin, setColorSwatches, setControlsHistory, setDraftHistory, setSkin } from '@/utils/cache/localStorage';
+import { getControlsHistory, getDraftHistory, setColorSwatches, setDraftHistory } from '@/utils/cache/localStorage';
 import { useEditorStore } from '@/store/editor';
 
 const { activeThemeName } = useTheme();
@@ -9,11 +9,6 @@ const { activeThemeName } = useTheme();
 const canvas = ref();
 
 const editorStore = useEditorStore();
-
-const setSkinToLocalStorage = () => {
-  let imageURL = editorStore.skineditor.skin.skinCanvas().toDataURL();
-  setSkin(imageURL);
-}
 
 const setColorSwatchesTLS = () => {
   setColorSwatches(editorStore.colorSwatches)
@@ -32,20 +27,20 @@ const setDraftHistoryTLS = () => {
 
 onMounted(() => {
   setTimeout(() => {
-    getSkin() ? editorStore.initSkineditor(getSkin()) : editorStore.initSkineditor();
     getControlsHistory() ? editorStore.skineditor.toolBox.history.setCacheHistory(getControlsHistory()) : null
     getDraftHistory() ? editorStore.draftHistory = getDraftHistory() : []
+    editorStore.draftHistory.length > 0 ? editorStore.initSkineditor(editorStore.draftHistory[0].skin) : editorStore.initSkineditor()
+
   })
 
   // 监听页面离开时触发 保存皮肤到本地
-  window.addEventListener('unload', setSkinToLocalStorage)
+
   window.addEventListener('unload', setColorSwatchesTLS)
   window.addEventListener('unload', setControlsHistoryTLS)
   window.addEventListener('unload', setDraftHistoryTLS)
 })
 
 onUpdated(() => {
-  window.addEventListener('unload', setSkinToLocalStorage)
   window.addEventListener('unload', setColorSwatchesTLS)
   window.addEventListener('unload', setControlsHistoryTLS)
   window.addEventListener('unload', setDraftHistoryTLS)
@@ -53,7 +48,7 @@ onUpdated(() => {
 })
 
 onBeforeRouteLeave(() => {
-  window.removeEventListener('unload', setSkinToLocalStorage);
+
   window.removeEventListener('unload', setColorSwatchesTLS)
   window.removeEventListener('unload', setControlsHistoryTLS)
   window.removeEventListener('unload', setDraftHistoryTLS)
@@ -61,7 +56,7 @@ onBeforeRouteLeave(() => {
 })
 
 onUnmounted(() => {
-  window.removeEventListener('unload', setSkinToLocalStorage);
+
   window.removeEventListener('unload', setColorSwatchesTLS)
   window.removeEventListener('unload', setControlsHistoryTLS)
   window.removeEventListener('unload', setDraftHistoryTLS)

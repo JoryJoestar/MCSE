@@ -10,7 +10,6 @@ import { Skin } from './Skin';
 import { Color, PerspectiveCamera, Raycaster, Scene, Vector3, WebGLRenderer, sRGBEncoding } from 'three';
 import { ModelChangeTool } from './ModelChangeTool';
 import { ToolBox } from './ToolBox';
-import { setSkin } from '@/utils/cache/localStorage';
 import { download, resizedCanvas } from '@/utils/mcskineditor/canvas';
 
 class SkinEditor {
